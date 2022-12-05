@@ -17,13 +17,13 @@
 <script setup>
 import { useLanguageFilterStore } from '~~/store/languageFilterStore';
 import { storeToRefs } from 'pinia';
+import { productsFilter } from '~~/utils/queryParams';
 
-const pageNum = 1;
-const pageSize = 20;
+const params = { baseQuery: '/api/products', pageNum: 1, pageSize: 20 };
 
-const { data: products } = useFetch(
-  `/api/products?pageSize=${pageSize}&pageNum=${pageNum}`,
-);
+const query = productsFilter(params);
+
+const { data: products } = useFetch(query);
 
 const lang = useLanguageFilterStore();
 const { currentLanguage } = storeToRefs(lang);
