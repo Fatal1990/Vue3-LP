@@ -1,6 +1,11 @@
 <template>
   <div>
-    <ProductsList />
+    <div>
+      <CatalogTree />
+    </div>
+    <div>
+      <ProductsList />
+    </div>
   </div>
 </template>
 

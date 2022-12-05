@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h3>List of products:</h3>
-    <div v-if="products">
+    <h3>Catalog:</h3>
+    <div v-if="catalogs">
       <ul>
-        <li v-for="product in products" :key="product">
-          {{ product.name[currentLanguage] }}
+        <li v-for="item in catalogs" :key="item.id">
+          {{ item.name[currentLanguage] }}
         </li>
       </ul>
     </div>
@@ -18,12 +18,7 @@
 import { useLanguageFilterStore } from '~~/store/languageFilterStore';
 import { storeToRefs } from 'pinia';
 
-const pageNum = 1;
-const pageSize = 20;
-
-const { data: products } = useFetch(
-  `/api/products?pageSize=${pageSize}&pageNum=${pageNum}`,
-);
+const { data: catalogs } = useFetch('/api/catalog');
 
 const lang = useLanguageFilterStore();
 const { currentLanguage } = storeToRefs(lang);
