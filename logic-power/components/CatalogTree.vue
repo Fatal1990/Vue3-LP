@@ -4,7 +4,9 @@
     <div v-if="catalogs">
       <ul>
         <li v-for="item in catalogs" :key="item.id">
-          {{ item.name[currentLanguage] }}
+          <NuxtLink :to="`/catalog/${item.slug}`">{{
+            item.name[currentLanguage]
+          }}</NuxtLink>
         </li>
       </ul>
     </div>

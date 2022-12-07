@@ -125,13 +125,12 @@
 import { useLanguageFilterStore } from '~~/store/languageFilterStore';
 import { storeToRefs } from 'pinia';
 
-const { data } = useFetch('/api/translations');
+const { data } = await useFetch('/api/translations');
 
 const lang = useLanguageFilterStore();
 const { currentLanguage } = storeToRefs(lang);
 
 const _T = (keyText) => {
-  if (data.value === null) return '';
   if (data.value[keyText] === undefined) return keyText;
 
   return data.value[keyText][currentLanguage.value];

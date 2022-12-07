@@ -18,8 +18,8 @@ export const productsFilter = ({
   query += !!sort ? `&sort=${sort}` : '';
   query += !!categoryId ? `&categoryId=${categoryId}` : '';
   query += !!searchQuery ? `&searchQuery=${searchQuery}` : '';
-  query += !!minPrice ? `&sort=${minPrice}` : '';
-  query += !!maxPrice ? `&sort=${maxPrice}` : '';
+  query += !!minPrice ? `&minPrice=${minPrice}` : '';
+  query += !!maxPrice ? `&maxPrice=${maxPrice}` : '';
   query += !!manufactures ? `&manufactures=${manufactures}` : '';
   query += !!specifications ? `&specifications=${specifications}` : '';
 
