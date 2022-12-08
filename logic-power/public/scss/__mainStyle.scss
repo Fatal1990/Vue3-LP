@@ -1,7 +1,3 @@
-@import "colors";
-@import "computedVars";
-@import "src/_shared/assets/scss/sharedStyle";
-
 body {
 	font-family: "Inter", sans-serif;
 	line-height: 1.2;
@@ -18,78 +14,5 @@ body {
 	> * {
 		width: 100%;
 		margin: 0 auto;
-	}
-}
-
-.ui-create-modal {
-	width: 100%;
-	max-width: 1040px;
-
-	display: flex;
-	flex-direction: column;
-
-	&__header {
-		display: flex;
-		flex-direction: column;
-
-		margin-top: 64px;
-		padding: 16px;
-
-		@include bigMobile() {
-			margin-top: 48px;
-		}
-	}
-
-	&__title {
-		width: 100%;
-
-		@include font(24, 24, 700);
-		text-align: center;
-
-		@include bigMobile() {
-			@include font(20, 20, 700);
-		}
-	}
-
-	&__body {
-		--gap: 32px;
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
-		gap: 16px Var(--gap);
-
-		padding: 16px;
-
-		@include bigMobile() {
-			flex-direction: column;
-		}
-
-	}
-
-	&__column {
-		@include set-item-count-in-row(3);
-
-		display: flex;
-		flex-direction: column;
-		gap: inherit;
-
-		@include bigMobile() {
-			@include set-item-count-in-row(1);
-		}
-	}
-
-
-	&__footer {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 16px;
-
-		padding: 16px;
-
-		> * {
-			width: 100%;
-			max-width: 350px;
-		}
 	}
 }
