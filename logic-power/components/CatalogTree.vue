@@ -17,11 +17,11 @@
 </template>
 
 <script setup>
-import { useLanguageFilterStore } from '~~/store/languageFilterStore';
-import { storeToRefs } from 'pinia';
-
-const { data: catalogs } = useFetch('/api/catalog');
+import { useLanguageFilterStore } from "~~/store/languageFilterStore";
+import { storeToRefs } from "pinia";
 
 const lang = useLanguageFilterStore();
 const { currentLanguage } = storeToRefs(lang);
+
+const { data: catalogs } = useFetch("/api/catalog");
 </script>

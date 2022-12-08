@@ -16,11 +16,15 @@
 
 <script setup>
 import { productsFilter } from "~~/utils/queryParams";
+import { useQueryStore } from "~~/store/queryStore";
+import { storeToRefs } from "pinia";
+
+const queryStore = useQueryStore();
+const currentQuery = queryStore.getQuery;
 
 const params = {
+  ...currentQuery,
   baseQuery: "/api/products",
-  pageNum: 1,
-  pageSize: 20,
 };
 
 const query = productsFilter(params);
