@@ -137,4 +137,121 @@ const _T = (keyText) => {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.warranty {
+  @include flex-container(column, null, center);
+
+  @extend %padding-wrp;
+  padding-bottom: 80px;
+
+  &__w {
+    @extend %width-content;
+    @include flex-container(column, null);
+    gap: 48px;
+  }
+
+  &__title {
+    @include font(28, 34, 700);
+    text-align: center;
+
+    @include mobile {
+      @include font(24, 28, 700);
+    }
+  }
+
+  &__info {
+    @include flex-container(column, null);
+    align-items: flex-start;
+    gap: 24px;
+
+    @include mobile {
+      gap: 16px;
+    }
+  }
+
+  &__info-title {
+    @include font(26, 32, 700);
+
+    @include mobile {
+      @include font(22, 26, 700);
+    }
+  }
+
+  &__info-title-text {
+    @include font;
+    letter-spacing: 0.02em;
+  }
+
+  &__info-title-list {
+    @include font(18, 24);
+    letter-spacing: 0.02em;
+
+    list-style: inside;
+  }
+
+  &__info-title-list-num {
+    @include flex-container(column, null);
+    gap: 16px;
+
+    list-style: inside;
+    list-style-type: decimal;
+  }
+
+  &__info-title-list-item {
+    @include font;
+    letter-spacing: 0.02em;
+  }
+
+  &__info-b {
+    @include flex-container(column, null, flex-start);
+    gap: 16px;
+
+    border: 1px solid #393d38;
+    border-radius: 8px;
+
+    padding: 16px;
+
+    @include mobile {
+      padding: 8px;
+    }
+  }
+
+  &__info-subtitle {
+    @include font(22, 26, 600);
+
+    @include mobile {
+      @include font(20, 24, 600);
+    }
+  }
+
+  &__info-subtitle-list {
+    @include flex-container(column, null);
+    gap: 8px;
+
+    list-style: inside;
+  }
+
+  &__info-subtitle-list-item {
+    @include font;
+    letter-spacing: 0.02em;
+  }
+
+  &__note {
+    @include font;
+    letter-spacing: 0.02em;
+
+    border: 1px solid #393d38;
+    border-radius: 8px;
+
+    padding: 16px;
+
+    @include mobile {
+      padding: 8px;
+    }
+  }
+
+  &__important {
+    color: var(--color-primary-base);
+  }
+}
+</style>
