@@ -4,12 +4,12 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	color: $color-text;
+	color: var(--color-ink-base);
 	max-width: 100vw;
 
 	@include scrollbarStyle(8px);
 
-	background-color: $color-bg-grey-lightest;
+	background-color: var(--color-sky-lightest);
 
 	> * {
 		width: 100%;
