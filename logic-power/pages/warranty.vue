@@ -125,7 +125,7 @@
 import { useLanguageFilterStore } from "~~/store/languageFilterStore";
 import { storeToRefs } from "pinia";
 
-const { data } = await useFetch("/api/translations");
+const { data } = await useFetch(`/api/translations`);
 
 const lang = useLanguageFilterStore();
 const { currentLanguage } = storeToRefs(lang);
