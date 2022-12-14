@@ -3,14 +3,8 @@
     <div class="catalog__wrapper">
       <h1 class="catalog__title">Название категории</h1>
       <nav class="catalog__navigation">
-        <ButtonFilterMobile
-          @click.native="showFilters"
-          class="catalog__filter-mobile"
-        />
-        <ButtonFilter
-          class="catalog__button-filter"
-          @click.native="activeFilter"
-        />
+        <ButtonFilterMobile @click.native="showFilters" class="catalog__filter-mobile" />
+        <ButtonFilter class="catalog__button-filter" @click.native="activeFilter" />
       </nav>
       <section class="catalog__header" :class="{ active: mobileFilters }">
         <SelectedFilter
@@ -19,7 +13,7 @@
           :style="{ '--height': heightFilters + 'px' }"
           :filterItem="filterItem"
         />
-       <!--  <SelectGroup
+        <!--  <SelectGroup
           class="catalog__select"
           :selectList="selectItems"
           :caption="'По умолчанию'"
@@ -29,8 +23,8 @@
     </div>
   </section>
 </template>
-  
-  <script lang="ts">
+
+<script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
 import SelectedFilter from "./sections/SelectedFilter.vue";
 import CatalogMain from "./sections/CatalogMain.vue";
@@ -83,19 +77,9 @@ export default class CatalogComponent extends Vue {
       ? (this.heightFilters = this.$refs.selectedFilter.$el.scrollHeight * 2)
       : (this.heightFilters = 0);
   }
-
-  /*  getHeightFilters() {
-      this.heightFilters = this.$refs.selectedFilter.$el.scrollHeight * 2;
-      console.log(this.heightFilters)
-    }
-
-    mounted() {
-      this.getHeightFilters()
-      window.addEventListener('resize', this.getHeightFilters)
-    } */
 }
 </script>
-  
+
 <style lang="scss" scoped>
 .catalog {
   @extend %padding-wrp;
@@ -186,4 +170,3 @@ export default class CatalogComponent extends Vue {
   }
 }
 </style>
-        

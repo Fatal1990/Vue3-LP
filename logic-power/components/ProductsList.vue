@@ -15,9 +15,7 @@
 </template>
 
 <script setup>
-import { productsFilter } from "~~/utils/queryParams";
 import { useQueryStore } from "~~/store/queryStore";
-import { storeToRefs } from "pinia";
 
 const queryStore = useQueryStore();
 const currentQuery = queryStore.getQuery;

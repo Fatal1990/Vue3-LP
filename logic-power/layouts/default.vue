@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { useLanguageFilterStore } from '~~/store/languageFilterStore';
+import { useLanguageFilterStore } from "~~/store/languageFilterStore";
 
 const lang = useLanguageFilterStore();
 

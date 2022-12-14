@@ -1,92 +1,73 @@
 <template>
-  <section 
+  <section
     class="card-product"
-    :class="[
-      {'filter': changeView},
-      {'inactive': inactiveCard}
-    ]"
+    :class="[{ filter: changeView }, { inactive: inactiveCard }]"
   >
     <div class="card-product__wrapper">
-        <HeaderNav 
-          class="card-product__header-nav" 
+      <CatalogSectionsCardProductSectionsHeaderNav
+        class="card-product__header-nav"
+        :inactive="inactiveCard"
+      />
+      <div class="card-product__section header">
+        <div class="card-product__image-wrapper">
+          <img
+            class="card-product__image"
+            src="/img/product-card-catalog.png"
+            alt="product name"
+          />
+        </div>
+      </div>
+      <div class="card-product__section footer">
+        <div class="card-product__main-info">
+          <CatalogSectionsCardProductSectionsNavAvailability
+            :status="availabilityState"
+            :changeView="changeView"
+            :inactive="inactiveCard"
+          />
+          <div class="card-product__identification">
+            <p class="card-product__name-product">
+              Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)
+            </p>
+            <p class="card-product__code">Код: 56983</p>
+          </div>
+        </div>
+        <CatalogSectionsCardProductSectionsCardFooter
+          :status="footerValues"
+          :price="footerValues.price"
           :inactive="inactiveCard"
         />
-        <div class="card-product__section header">
-          <div class="card-product__image-wrapper">
-            <img class="card-product__image" src="../../../../assets/img/product-card-catalog.png" alt="product name">
-          </div>
-          <Rating 
-            class="card-product__rating" 
-            :inactive="inactiveCard"
-          />
-        </div>
-        <div class="card-product__section footer">
-          <div class="card-product__main-info">
-            <NavAvailability 
-              :status="availabilityState" 
-              :changeView="changeView"
-              :inactive="inactiveCard"
-            />
-            <div class="card-product__identification">
-              <p class="card-product__name-product">Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)</p>
-              <p class="card-product__code">Код: 56983</p>
-            </div>
-          </div>
-          <CardFooter 
-            :status="footerValues" 
-            :price="footerValues.price"
-            :inactive="inactiveCard"
-          />
-        </div>
+      </div>
     </div>
-  </section> 
+  </section>
 </template>
-    
-<script lang="ts">
-import { Component, Vue } from "~/tools/version-types";
-import { Prop } from "vue-property-decorator";
-import HeaderNav from "./sections/HeaderNav.vue";
-import Rating from "~/components/comparison/UI/product/Rating.vue";
-import NavAvailability from "./sections/NavAvailability.vue";
-import CardFooter from "./sections/CardFooter.vue"
 
-@Component({
-  components: {
-    HeaderNav,
-    Rating,
-    NavAvailability,
-    CardFooter
+<script setup>
+const { changeView } = defineProps(["changeView"]);
+
+const availabilityState = {
+  buttonStatus: {
+    inStock: "in-stock",
+    notAvailable: "not-available",
+    ends: "ends",
+    preOrder: "pre-order",
   },
-})
-export default class CardProductComponent extends Vue {
-  @Prop({required: false}) changeView: boolean;
+};
 
-  availabilityState: any = {
-    buttonStatus: {
-        inStock: 'in-stock',
-        notAvailable: 'not-available',
-        ends: 'ends',
-        preOrder: 'pre-order'
-    }
-  }
+const footerValues = {
+  buttonState: {
+    buy: "buy",
+    report: "report",
+    preOrder: "pre-order",
+  },
+  price: {
+    discount: "",
+    total: "500 ₴",
+  },
+};
 
-  footerValues: any = {
-    buttonState: {
-        buy: 'buy',
-        report: 'report',
-        preOrder: 'pre-order'
-    },
-    price: {
-      discount: '',
-      total: '500 ₴'
-    }
-  }
-
-  inactiveCard: boolean = false;
-  
-}
+const inactiveCard = ref(false);
 </script>
-    
+
 <style lang="scss" scoped>
 .card-product {
   --gap: 8px;
@@ -94,7 +75,7 @@ export default class CardProductComponent extends Vue {
 
   background-color: white;
 
-  border: 1px solid #E9E9E9;
+  border: 1px solid #e9e9e9;
   border-radius: 8px;
 
   @include set-item-count-in-row(4);
@@ -102,22 +83,22 @@ export default class CardProductComponent extends Vue {
   @include smallestScreen {
     @include set-item-count-in-row(3);
   }
-  
-  @include bigMobile { 
+
+  @include bigMobile {
     @include set-item-count-in-row(4);
   }
 
-  @include mobile { 
+  @include mobile {
     @include set-item-count-in-row(2);
   }
 
   &.inactive {
     .card-product__image {
-      filter:grayscale(1);
+      filter: grayscale(1);
     }
   }
   &.filter {
-    @include bigMobile { 
+    @include bigMobile {
       // max-width: 343px;
       @include set-item-count-in-row(2);
 
@@ -163,7 +144,7 @@ export default class CardProductComponent extends Vue {
       }
 
       .card-product__main-info {
-        @include flex-container(column-reverse, flex-start, );
+        @include flex-container(column-reverse, flex-start);
       }
 
       .card-product__identification {
@@ -177,12 +158,12 @@ export default class CardProductComponent extends Vue {
 
         text-overflow: ellipsis;
         overflow: hidden;
-        
+
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
     }
-    @include mobile { 
+    @include mobile {
       @include set-item-count-in-row(1);
     }
   }
@@ -196,7 +177,7 @@ export default class CardProductComponent extends Vue {
 
     padding: 16px 0;
 
-    @include bigMobile {  
+    @include bigMobile {
       padding: 8px 0;
     }
   }
@@ -209,18 +190,18 @@ export default class CardProductComponent extends Vue {
 
     z-index: 100;
 
-    @include bigMobile { 
+    @include bigMobile {
       top: 8px;
     }
   }
 
   &__section {
     &.header {
-      border-bottom: 1px solid #F3F3F3;
+      border-bottom: 1px solid #f3f3f3;
 
-      margin-bottom: 16px; 
+      margin-bottom: 16px;
 
-      @include bigMobile { 
+      @include bigMobile {
         margin-bottom: 8px;
       }
     }
@@ -231,7 +212,7 @@ export default class CardProductComponent extends Vue {
       padding: 0 16px;
       gap: 34px;
 
-      @include bigMobile { 
+      @include bigMobile {
         padding: 0 8px;
         gap: 28px;
       }
@@ -239,7 +220,7 @@ export default class CardProductComponent extends Vue {
   }
 
   &__image-wrappe {
-    @include bigMobile { 
+    @include bigMobile {
       max-width: 164px;
     }
   }
@@ -252,7 +233,7 @@ export default class CardProductComponent extends Vue {
     margin: 0;
     padding-bottom: 16px;
 
-    @include bigMobile { 
+    @include bigMobile {
       padding: 0 4px 8px 4px;
     }
   }
@@ -272,9 +253,9 @@ export default class CardProductComponent extends Vue {
   &__name-product {
     @include fontUnify(16, 22, 400);
     letter-spacing: 0.02em;
-    color: #2B2B2B;
+    color: #2b2b2b;
 
-    @include bigMobile { 
+    @include bigMobile {
       @include fontUnify(12, 16, 400);
     }
   }
@@ -282,9 +263,7 @@ export default class CardProductComponent extends Vue {
   &__code {
     @include fontUnify(12, 16, 400);
     letter-spacing: 0.02em;
-    color: #8A8A8A;
+    color: #8a8a8a;
   }
 }
-
 </style>
-        
