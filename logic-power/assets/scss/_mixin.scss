@@ -134,5 +134,5 @@
 
 /// $product-gallery-margin горизонтальный отступ между карточками: --row-gap перменная
 @mixin set-item-count-in-row($count) {
-  width: Calc((100% - #{($count - 1)} * #{--row-gap}) / #{$count});
+  width: Calc((100% - #{($count - 1)} * #{var(--row-gap, var(--gap, 1%))}) / #{$count});
 }

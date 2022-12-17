@@ -1,8 +1,8 @@
 <template>
   <section class="category-catalog">
     <h1 class="category-catalog__title">Продукция</h1>
-    <div v-for="category in catalog" :key="category.id" class="category-catalog__w">
-      <div class="category-card">
+    <div class="category-catalog__w">
+      <div class="category-card" v-for="category in catalog" :key="category.id" >
         <NuxtLink class="category-card__link" :to="`/${category.slug}`">
           <div class="category-card__img-cont">
             <!--Негде взять картинку или я не туда стучусь-->
@@ -84,11 +84,9 @@
 const { data: catalog } = await useFetch("/api/catalog");
 </script>
 
-<style lang="scss">
-/*.category-catalog {
-  @extend %flex-column;
-  justify-content: center;
-  align-items: center;
+<style lang="scss" scoped>
+.category-catalog {
+  @include flex-container(column, center, center);
   gap: 48px;
 
   @extend %padding-wrp;
@@ -99,14 +97,14 @@ const { data: catalog } = await useFetch("/api/catalog");
   }
 
   &__title {
-    @include fontUnify(42, 50, 500);
+    @include font(42, 50, 500);
     text-align: center;
     text-transform: uppercase;
 
     margin-bottom: 46px;
 
     @include mobile {
-      @include fontUnify(24, 34, 500);
+      @include font(24, 34, 500);
       letter-spacing: 0.02em;
 
       margin-bottom: 0;
@@ -116,22 +114,21 @@ const { data: catalog } = await useFetch("/api/catalog");
   &__w {
     @extend %width-main;
 
-    display: flex;
-    justify-content: flex-start;
+    @include flex-container(row, flex-start);
     flex-wrap: wrap;
 
-    --gap: 16px;
-    gap: 24px var(--gap);
+    gap: 24px 16px;
 
     @include mobile {
-      gap: var(--gap);
+      gap: 16px;
     }
   }
 }
 
 .category-card {
-  @extend %flex-column;
-  align-items: center;
+  --gap: 16px;
+
+  @include flex-container(column, center, center);
   gap: 24px;
 
   background-color: #ffffff;
@@ -170,7 +167,8 @@ const { data: catalog } = await useFetch("/api/catalog");
   }
 
   &__img {
-    @include absoluteGrow();
+    position: absolute;
+    @include setAbs;
 
     width: 100%;
     height: 100%;
@@ -185,9 +183,7 @@ const { data: catalog } = await useFetch("/api/catalog");
   &__info {
     height: 100%;
 
-    @extend %flex-column;
-    align-items: center;
-    justify-content: space-between;
+    @include flex-container(column, space-between, center);
     gap: 16px;
 
     padding: 0 10px 20px;
@@ -200,18 +196,18 @@ const { data: catalog } = await useFetch("/api/catalog");
   }
 
   &__title {
-    @include fontUnify(20, 30, 600);
+    @include font(20, 30, 600);
     text-transform: uppercase;
     text-align: center;
 
     @include mobile {
-      @include fontUnify(18, 22, 600);
+      @include font(18, 22, 600);
       letter-spacing: 0.02em;
     }
   }
 
   &__text {
-    @include fontUnify;
+    @include font;
     text-align: center;
     letter-spacing: 0.02em;
 
@@ -227,7 +223,7 @@ const { data: catalog } = await useFetch("/api/catalog");
   &__link {
     width: 100%;
 
-    @include fontUnify(18, 24);
+    @include font(18, 24);
     text-transform: capitalize;
     text-align: center;
     letter-spacing: 0.02em;
@@ -235,12 +231,12 @@ const { data: catalog } = await useFetch("/api/catalog");
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
 
-    color: $color-main;
+    color: var(--color-primary-base);
 
     transition: 0.2s ease-in-out;
 
     &:hover {
-      color: $color-main-dark;
+      color: var(--color-primary-dark);
     }
   }
 }
@@ -248,15 +244,12 @@ const { data: catalog } = await useFetch("/api/catalog");
 .category-purpose {
   width: 100%;
 
-  @extend %flex-column;
-  justify-content: center;
-  align-items: center;
+  @include flex-container(column, center, center);
   gap: 48px;
 
   &__w {
     @extend %width-content;
-    @extend %flex-column;
-    align-content: flex-start;
+    @include flex-container(column, center, flex-start);
     gap: 48px;
 
     @include mobile {
@@ -266,28 +259,28 @@ const { data: catalog } = await useFetch("/api/catalog");
     }
 
     & div {
-      @extend %flex-column;
+      @include flex-container(column, center);
       gap: 16px;
     }
 
     & h2 {
-      @include fontUnify(42, 50, 700);
+      @include font(42, 50, 700);
       text-transform: uppercase;
 
       @include mobile {
-        @include fontUnify(20, 30);
+        @include font(20, 30);
         text-align: center;
       }
     }
 
     & h4 {
-      @include fontUnify(32, 42, 600);
+      @include font(32, 42, 600);
       letter-spacing: 0.02em;
 
       margin-bottom: 8px;
 
       @include mobile {
-        @include fontUnify(20, 28);
+        @include font(20, 28);
         text-align: center;
       }
     }
@@ -306,11 +299,11 @@ const { data: catalog } = await useFetch("/api/catalog");
 
     & p,
     & li {
-      @include fontUnify(20, 28);
+      @include font(20, 28);
       letter-spacing: 0.02em;
 
       @include mobile {
-        @include fontUnify;
+        @include font;
       }
     }
   }
@@ -319,12 +312,11 @@ const { data: catalog } = await useFetch("/api/catalog");
     @extend %width-main;
     height: 1px;
 
-    background-color: $color-main;
+    background-color: var(--color-primary-base);
 
     @include mobile {
       display: none;
     }
   }
 }
-*/
 </style>
