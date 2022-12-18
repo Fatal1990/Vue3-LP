@@ -1,5 +1,5 @@
 <template>
-  <h3>Catalog {{ slug }}</h3>
+  <h3>Product {{ slug }}</h3>
 </template>
 
 <script setup>

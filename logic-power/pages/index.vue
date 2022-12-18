@@ -2,23 +2,30 @@
   <section class="category-catalog">
     <h1 class="category-catalog__title">Продукция</h1>
     <div class="category-catalog__w">
-      <div class="category-card" v-for="category in catalog" :key="category.id" >
-        <NuxtLink class="category-card__link" :to="`/${category.slug}`">
+      <div class="category-card" v-for="category in catalog" :key="category.id">
+        <NuxtLink
+          class="category-card__link"
+          :to="`${currentLanguage === 'ru' ? '' : '/' + currentLanguage}/${
+            category.slug
+          }`"
+        >
           <div class="category-card__img-cont">
-            <!--Негде взять картинку или я не туда стучусь-->
             <img class="category-card__img" :src="category.img" :alt="category.slug" />
           </div>
         </NuxtLink>
         <div class="category-card__info">
           <h3 class="category-card__title">{{ category.name.ru }}</h3>
-          <!--Негде взять описание или я не туда стучусь-->
           <p class="category-card__text">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur,
             similique! Animi magni accusantium nemo voluptatibus voluptate laboriosam,
             molestiae vero nulla soluta exercitationem quae delectus, quidem, adipisci
             aperiam blanditiis incidunt distinctio.
           </p>
-          <NuxtLink class="category-card__link" :to="`/${category.slug}`"
+          <NuxtLink
+            class="category-card__link"
+            :to="`${currentLanguage === 'ru' ? '' : '/' + currentLanguage}/${
+              category.slug
+            }`"
             >перейти</NuxtLink
           >
         </div>
@@ -81,7 +88,15 @@
 </template>
 
 <script setup>
-const { data: catalog } = await useFetch("/api/catalog");
+import { useLanguageFilterStore } from "~~/store/languageFilterStore";
+import { storeToRefs } from "pinia";
+import { useCategoriesStore } from "~~/store/categoriesStore";
+
+const lang = useLanguageFilterStore();
+const { currentLanguage } = storeToRefs(lang);
+
+const catalogStore = useCategoriesStore();
+const catalog = catalogStore.getCategories;
 </script>
 
 <style lang="scss" scoped>
