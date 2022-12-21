@@ -23,13 +23,13 @@ const { status, price, inactive } = defineProps([
   gap: 8px;
 
   &__price {
-    /*@include fontUnify(28, 39, 600);*/
+    @include font(28, 39, 600);
     letter-spacing: 0.02em;
     color: #f36c21;
 
-    /*@include bigMobile {
-      @include fontUnify(16, 22, 500);
-    }*/
+    @include bigMobile {
+      @include font(16, 22, 500);
+    }
   }
 }
 </style>

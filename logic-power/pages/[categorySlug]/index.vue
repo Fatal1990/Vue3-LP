@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Catalog {{ categorySlug }}</h3>
-    <div v-if="products.length">
+    <div class="catalog-list__items" v-if="products.length">
       <CardProduct
         v-for="product in products"
         :key="product.id"
@@ -32,4 +32,39 @@ const { data: products } = await useFetch(
 );
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.catalog-list {
+
+    &__wrapper {
+        @include flex-container(column, flex-start);
+        
+        gap: 64px;
+        margin-bottom: 64px;
+    }
+
+    &__items {
+        @include flex-container(row, space-between);
+        flex-wrap: wrap;
+
+        gap: 8px;
+    }
+
+    &__navigation {
+        @include flex-container(column, center, center);
+
+        gap: 32px;
+    }
+
+    &__pagination {
+        @include flex-container(row, center, center);
+
+        gap: 26px;
+    }
+
+    &__pages {
+        @include flex-container(row, center, center);
+
+        gap: 26px;
+    }
+}
+</style>

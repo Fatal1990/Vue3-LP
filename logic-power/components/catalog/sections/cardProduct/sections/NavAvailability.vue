@@ -26,7 +26,7 @@ const { status, changeView, inactive } = defineProps([
 
 <style lang="scss" scoped>
 .availability {
-  @include flex-container(row, center, center);
+  @include flex-container(row, space-between, center);
 
   gap: 28px;
 

@@ -154,7 +154,7 @@ const inactiveCard = ref(false);
       .card-product__name-product {
         display: -webkit-box;
 
-        @include fontUnify(14, 18, 400);
+        @include font(14, 18, 400);
 
         text-overflow: ellipsis;
         overflow: hidden;
@@ -245,23 +245,23 @@ const inactiveCard = ref(false);
   }
 
   &__identification {
-    @include flex-container(column, center, start);
+    @include flex-container(column, center, flex-start);
 
     gap: 8px;
   }
 
   &__name-product {
-    @include fontUnify(16, 22, 400);
+    @include font(16, 22, 400);
     letter-spacing: 0.02em;
     color: #2b2b2b;
 
     @include bigMobile {
-      @include fontUnify(12, 16, 400);
+      @include font(12, 16, 400);
     }
   }
 
   &__code {
-    @include fontUnify(12, 16, 400);
+    @include font(12, 16, 400);
     letter-spacing: 0.02em;
     color: #8a8a8a;
   }
