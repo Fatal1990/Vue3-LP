@@ -9,7 +9,7 @@
         <div class="card-product__image-wrapper">
           <img
             class="card-product__image"
-            src="/img/product-card-catalog.png"
+            src="/img/logo-short.png"
             alt="product name"
           />
         </div>
@@ -23,10 +23,9 @@
           />
           <div class="card-product__identification">
             <p class="card-product__name-product">
-              Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah
-              (JAPAN)
+              {{ product.name.ru }}
             </p>
-            <p class="card-product__code">Код: 56983</p>
+            <p class="card-product__code">{{ parseInt(product.code) }}</p>
           </div>
         </div>
         <CardFooter
