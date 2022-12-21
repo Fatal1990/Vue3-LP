@@ -6,43 +6,50 @@
   </section>
 </template>
 
-<script setup>
-const { status } = defineProps(['status']);
+<script lang="ts">
+import { Component, Vue } from "~/tools/version-types";
+import { Prop } from "vue-property-decorator";
+
+@Component({})
+export default class SuggestionsComponent extends Vue {
+  @Prop({ required: false }) status: string;
+}
 </script>
 
 <style lang="scss" scoped>
 .suggestions {
-  border-radius: 4px;
+    border-radius: 4px;
 
-  padding: 4px 8px;
+    padding: 4px 8px;
   &.novelty {
     background-color: #159822;
     .suggestions__name.novelty {
-      display: block;
+        display: block;
     }
   }
 
   &.stock {
-    background-color: #eb1717;
+    background-color: #EB1717;
     .suggestions__name.stock {
-      display: block;
+        display: block;
     }
   }
 
   &.top-sales {
-    background-color: #4490bb;
+    background-color: #4490BB;
     .suggestions__name.top-sales {
-      display: block;
+        display: block;
     }
   }
 
   &__name {
     display: none;
 
-    /*@include fontUnify(10, 14, 400);*/
+    @include fontUnify(10, 14, 400);
     text-transform: uppercase;
     letter-spacing: 0.02em;
     color: white;
   }
 }
 </style>
+   

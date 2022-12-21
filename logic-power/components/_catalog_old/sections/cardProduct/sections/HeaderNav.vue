@@ -2,23 +2,23 @@
   <header class="card-header">
     <div class="card-header__wrapper">
       <div class="card-header__suggestions">
-        <Suggestions v-if="!inactive" :status="typeAvailability.novelty" />
+        <CatalogSectionsCardProductUISuggestions
+          v-if="!inactive"
+          :status="typeAvailability.novelty"
+        />
       </div>
-      <HeaderButtons />
+      <CatalogSectionsCardProductSectionsHeaderButtons />
     </div>
   </header>
 </template>
 
 <script setup>
-import Suggestions from '../UI/Suggestions.vue';
-import HeaderButtons from '../sections/HeaderButtons.vue';
-
-const { inactive } = defineProps(['inactive']);
+const { inactive } = defineProps(["inactive"]);
 
 const typeAvailability = {
-  novelty: 'novelty',
-  stock: 'stock',
-  sales: 'top-sales',
+  novelty: "novelty",
+  stock: "stock",
+  sales: "top-sales",
 };
 </script>
 

@@ -3,12 +3,7 @@
     <h1 class="category-catalog__title">Продукция</h1>
     <div class="category-catalog__w">
       <div class="category-card" v-for="category in catalog" :key="category.id">
-        <NuxtLink
-          class="category-card__link"
-          :to="`${currentLanguage === 'ru' ? '' : '/' + currentLanguage}/${
-            category.slug
-          }`"
-        >
+        <NuxtLink class="category-card__link" :to="`/${category.slug}`">
           <div class="category-card__img-cont">
             <img class="category-card__img" :src="category.img" :alt="category.slug" />
           </div>
@@ -21,11 +16,7 @@
             molestiae vero nulla soluta exercitationem quae delectus, quidem, adipisci
             aperiam blanditiis incidunt distinctio.
           </p>
-          <NuxtLink
-            class="category-card__link"
-            :to="`${currentLanguage === 'ru' ? '' : '/' + currentLanguage}/${
-              category.slug
-            }`"
+          <NuxtLink class="category-card__link" :to="`/${category.slug}`"
             >перейти</NuxtLink
           >
         </div>
@@ -88,12 +79,7 @@
 </template>
 
 <script setup>
-import { useLanguageFilterStore } from "~~/store/languageFilterStore";
-import { storeToRefs } from "pinia";
 import { useCategoriesStore } from "~~/store/categoriesStore";
-
-const lang = useLanguageFilterStore();
-const { currentLanguage } = storeToRefs(lang);
 
 const catalogStore = useCategoriesStore();
 const catalog = catalogStore.getCategories;

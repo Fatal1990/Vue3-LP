@@ -75,27 +75,9 @@
           y2="16.5"
           stroke="#8A8A8A"
         />
-        <line
-          class="nav-buttons__comparison-state"
-          x1="23"
-          y1="17.5"
-          x2="15"
-          y2="17.5"
-        />
-        <line
-          class="nav-buttons__comparison-state"
-          x1="22"
-          y1="18.5"
-          x2="16"
-          y2="18.5"
-        />
-        <line
-          class="nav-buttons__comparison-state"
-          x1="21"
-          y1="19.5"
-          x2="17"
-          y2="19.5"
-        />
+        <line class="nav-buttons__comparison-state" x1="23" y1="17.5" x2="15" y2="17.5" />
+        <line class="nav-buttons__comparison-state" x1="22" y1="18.5" x2="16" y2="18.5" />
+        <line class="nav-buttons__comparison-state" x1="21" y1="19.5" x2="17" y2="19.5" />
         <line
           class="nav-buttons__comparison-state"
           x1="9"
@@ -104,27 +86,9 @@
           y2="16.5"
           stroke="#8A8A8A"
         />
-        <line
-          class="nav-buttons__comparison-state"
-          x1="9"
-          y1="17.5"
-          x2="1"
-          y2="17.5"
-        />
-        <line
-          class="nav-buttons__comparison-state"
-          x1="8"
-          y1="18.5"
-          x2="2"
-          y2="18.5"
-        />
-        <line
-          class="nav-buttons__comparison-state"
-          x1="7"
-          y1="19.5"
-          x2="3"
-          y2="19.5"
-        />
+        <line class="nav-buttons__comparison-state" x1="9" y1="17.5" x2="1" y2="17.5" />
+        <line class="nav-buttons__comparison-state" x1="8" y1="18.5" x2="2" y2="18.5" />
+        <line class="nav-buttons__comparison-state" x1="7" y1="19.5" x2="3" y2="19.5" />
       </svg>
 
       <svg
@@ -199,8 +163,8 @@
 </template>
 
 <script setup>
-const activeLike = useState('activeLike', () => false);
-const activeComparison = useState('activeComparison', () => false);
+const activeLike = ref(false);
+const activeComparison = ref(false);
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,7 @@
 <template>
   <div>
     <header>
+      <div></div>
       <button
         v-for="(item, index) in languageList"
         :key="index"
@@ -19,7 +20,7 @@
 </template>
 
 <script setup>
-import { useLanguageFilterStore } from "~~/store/languageFilterStore";
+import { useLanguageFilterStore } from '~~/store/languageFilterStore';
 
 const lang = useLanguageFilterStore();
 

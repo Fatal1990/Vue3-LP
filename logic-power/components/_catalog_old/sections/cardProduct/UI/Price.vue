@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="price"
-    :class="[{ active: !price.discount }, { inactive: inactive }]"
-  >
+  <div class="price" :class="[{ active: !price.discount }, {inactive: inactive}]">
     <h2 class="price__discount" v-if="price.discount">
       {{ price.discount }}
     </h2>
@@ -10,8 +7,17 @@
   </div>
 </template>
 
-<script setup>
-const { price, inactive } = defineProps(['price', 'inactive']);
+<script lang="ts">
+import { Component, Vue } from "~/tools/version-types";
+import { Prop } from "vue-property-decorator";
+
+@Component({
+  components: {},
+})
+export default class PriceComponent extends Vue {
+  @Prop({ required: true }) price: any;
+  @Prop({ required: true }) inactive: boolean;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -32,15 +38,15 @@ const { price, inactive } = defineProps(['price', 'inactive']);
 
   &.inactive {
     .price__discount {
-      color: #8a8a8a;
+      color: #8A8A8A;
     }
 
     .price__total {
-      color: #8a8a8a;
+      color: #8A8A8A;
     }
   }
 
-  /*&__discount {
+  &__discount {
     @include fontUnify(12, 16, 400);
     color: #2b2b2b;
     letter-spacing: 0.02em;
@@ -55,6 +61,6 @@ const { price, inactive } = defineProps(['price', 'inactive']);
     @include bigMobile {
       @include fontUnify(16, 22, 500);
     }
-  }*/
+  }
 }
 </style>
