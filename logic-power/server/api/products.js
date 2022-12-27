@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
     });
     return data.data.items;
   } catch (error) {
-    console.log(error.response.request.path);
+    console.log(error, error.response.request.path);
     return error;
   }
 });

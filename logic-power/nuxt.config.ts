@@ -6,6 +6,28 @@ export default defineNuxtConfig({
         autoImports: ['defineStore'],
       },
     ],
+    [
+      '@nuxtjs/i18n',
+      {
+        locales: [
+          {
+            code: 'ru',
+            iso: 'ru-RU',
+          },
+          {
+            code: 'uk',
+            iso: 'uk-UA',
+          },
+        ],
+        baseUrl: 'https://logicpower.ua',
+        defaultLocale: 'ru',
+        detectBrowserLanguage: false,
+        strategy: 'prefix_except_default',
+        vueI18n: {
+          legacy: false,
+        },
+      },
+    ],
   ],
   vite: {
     css: {

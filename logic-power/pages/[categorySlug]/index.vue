@@ -1,21 +1,28 @@
 <template>
   <div>
-    <h3>Catalog {{ categorySlug }}</h3>
-    <div class="catalog-list__items" v-if="products.length">
-      <CardProduct
-        v-for="product in products"
-        :key="product.id"
-        :product="product"
-        :change-view="null"
-      />
+    <div v-if="category?.children.length">
+      <Catalog :categories="category.children" />
     </div>
-    <div v-else>Продукты не найдены...</div>
+    <div v-else>
+      <h3>Catalog {{ categorySlug }}</h3>
+      <div class="catalog-list__items" v-if="products.length">
+        <CardProduct
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+          :change-view="null"
+        />
+      </div>
+      <div v-else>Товары не найдены...</div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { useCategoriesStore } from '~~/store/categoriesStore';
-import CardProduct from '../../components/catalog/sections/cardProduct/CardProduct.vue';
+import { useBreadCrumbsStore } from '~~/store/breadCrumbsStore';
+import CardProduct from '~~/components/catalog/sections/cardProduct/CardProduct.vue';
+import Catalog from '~~/components/catalog/Catalog.vue';
 
 const { urlLang, categorySlug } = useRoute().params;
 
@@ -24,47 +31,48 @@ const lang = urlLang ? urlLang : 'ru';
 const categoryStore = useCategoriesStore();
 const category = categoryStore.getCategoryBySlug(categorySlug);
 
-const testId = '5b1b63e8-a04b-4244-8ae3-a4c18b409b33';
+const breadCrumbsStore = useBreadCrumbsStore();
+const breadCrumbs = breadCrumbsStore.setCrumb(categorySlug);
+
+console.log(breadCrumbs);
 
 const { data: products } = await useFetch(
-  //`/api/products?pageSize=25&pageNum=1&categoryId=${category.id}`
-  `/api/products?pageSize=25&pageNum=1&categoryId=${testId}`,
+  `/api/products?pageSize=25&pageNum=1&categoryId=${category.id}`,
 );
 </script>
 
 <style lang="scss" scoped>
 .catalog-list {
+  &__wrapper {
+    @include flex-container(column, flex-start);
 
-    &__wrapper {
-        @include flex-container(column, flex-start);
-        
-        gap: 64px;
-        margin-bottom: 64px;
-    }
+    gap: 64px;
+    margin-bottom: 64px;
+  }
 
-    &__items {
-        @include flex-container(row, space-between);
-        flex-wrap: wrap;
+  &__items {
+    @include flex-container(row, space-between);
+    flex-wrap: wrap;
 
-        gap: 8px;
-    }
+    gap: 8px;
+  }
 
-    &__navigation {
-        @include flex-container(column, center, center);
+  &__navigation {
+    @include flex-container(column, center, center);
 
-        gap: 32px;
-    }
+    gap: 32px;
+  }
 
-    &__pagination {
-        @include flex-container(row, center, center);
+  &__pagination {
+    @include flex-container(row, center, center);
 
-        gap: 26px;
-    }
+    gap: 26px;
+  }
 
-    &__pages {
-        @include flex-container(row, center, center);
+  &__pages {
+    @include flex-container(row, center, center);
 
-        gap: 26px;
-    }
+    gap: 26px;
+  }
 }
 </style>
