@@ -20,7 +20,6 @@
 
 <script setup>
 import { useCategoriesStore } from '~~/store/categoriesStore';
-import { useBreadCrumbsStore } from '~~/store/breadCrumbsStore';
 import CardProduct from '~~/components/catalog/sections/cardProduct/CardProduct.vue';
 import Catalog from '~~/components/catalog/Catalog.vue';
 
@@ -30,11 +29,6 @@ const lang = urlLang ? urlLang : 'ru';
 
 const categoryStore = useCategoriesStore();
 const category = categoryStore.getCategoryBySlug(categorySlug);
-
-const breadCrumbsStore = useBreadCrumbsStore();
-const breadCrumbs = breadCrumbsStore.setCrumb(categorySlug);
-
-console.log(breadCrumbs);
 
 const { data: products } = await useFetch(
   `/api/products?pageSize=25&pageNum=1&categoryId=${category.id}`,
