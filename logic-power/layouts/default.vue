@@ -11,6 +11,7 @@
       </button>
       <NuxtLink to="/warranty">Гарантия</NuxtLink>
       <NuxtLink to="/">Главная</NuxtLink>
+      <NuxtLink to="/Header">Header</NuxtLink>
     </header>
 
     <div>

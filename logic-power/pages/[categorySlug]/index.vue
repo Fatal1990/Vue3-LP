@@ -45,7 +45,7 @@ const { data: products } = await useFetch(
   }
 
   &__items {
-    @include flex-container(row, space-between);
+    @include flex-container(row, flex-start);
     flex-wrap: wrap;
 
     gap: 8px;
