@@ -5,26 +5,13 @@
         {{ title }}
       </h4>
       <div class="content__title-mob-arrow">
-        <img
-          class="content__title-mob-arrow-img"
-          src="@/assets/icons/nav-arrow-down.svg"
-          alt=""
-          :class="{ active: isActive }"
-        />
+        <img class="content__title-mob-arrow-img" src="@/assets/icons/nav-arrow-down.svg" alt=""
+          :class="{ active: isActive }" />
       </div>
     </div>
-    <div
-      class="content__block-list-w"
-      :class="{ active: isActive }"
-      :style="{ '--list-height': listHeight + 'px' }"
-    >
+    <div class="content__block-list-w" :class="{ active: isActive }" :style="{ '--list-height': listHeight + 'px' }">
       <ul class="content__block-list" :class="{ thin: thin }" ref="listOfItem">
-        <li
-          class="content__block-list-item"
-          v-for="item of list"
-          :key="item.id"
-          ref="ProdItem"
-        >
+        <li class="content__block-list-item" v-for="item of list" :key="item.id" ref="ProdItem">
           <a class="content__block-list-link" href="#"> {{ item.title }}</a>
         </li>
       </ul>
@@ -73,11 +60,11 @@ export default class FooterListComponent extends Vue {
 <style lang="scss" scoped>
 .content {
   &__block {
-    @extend %flex-column;
+    @include flex-container(column, stretch);
     gap: 24px;
 
     @include mobile {
-      border-bottom: 1px solid $color-main;
+      border-bottom: 1px solid var(--color-primary-base);
     }
   }
 
@@ -87,9 +74,9 @@ export default class FooterListComponent extends Vue {
 
   &__title {
     position: relative;
-    @include fontUnify(20, 30, 600);
+    @include font(20, 30, 600);
     text-transform: uppercase;
-    color: $color-main;
+    color: var(--color-primary-base);
   }
 
   &__title-mob-arrow {
@@ -101,7 +88,8 @@ export default class FooterListComponent extends Vue {
   }
 
   &__title-mob-arrow-img {
-    transition: 0.5s ease;
+    transition: transform 0.5s ease;
+
     &.active {
       transform: rotate(180deg);
     }
@@ -120,7 +108,7 @@ export default class FooterListComponent extends Vue {
 
     overflow: hidden;
 
-    transition: 0.5s ease;
+    transition: height 0.5s ease;
 
     @include bigMobile {
       flex-direction: column;
@@ -182,7 +170,7 @@ export default class FooterListComponent extends Vue {
     width: 100%;
     max-width: 200px;
 
-    @include fontUnify;
+    @include font;
     letter-spacing: 0.02em;
     color: white;
 
@@ -193,7 +181,7 @@ export default class FooterListComponent extends Vue {
     }
 
     &:hover {
-      color: $color-main-dark;
+      color: var(--color-primary-dark);
     }
   }
 }
