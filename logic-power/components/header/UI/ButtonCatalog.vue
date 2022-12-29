@@ -38,12 +38,14 @@
         />
       </svg>
     </div>
-    <span class="button-catalog__title">Каталог товаров</span>
+    <span class="button-catalog__title"
+      >Каталог товаров<!--<NuxtLink to="/catalog">Каталог товаров</NuxtLink>--></span
+    >
   </button>
 </template>
 
 <script setup>
-import { useHeaderlStore } from "~~/store/headerStore";
+import { useHeaderlStore } from '~~/store/headerStore';
 
 const header = useHeaderlStore();
 const modalCatalog = header.modalCatalog;
@@ -51,7 +53,7 @@ const activeCatalog = header.activeCatalog;
 
 const button = ref(null);
 
-const emits = defineEmits(["buttonCatalog"]);
+const emits = defineEmits(['buttonCatalog']);
 
 function showCatalog() {
   if (modalCatalog.active) {
@@ -62,7 +64,7 @@ function showCatalog() {
 }
 
 onMounted(() => {
-  emits("buttonCatalog", button.value);
+  emits('buttonCatalog', button.value);
 });
 </script>
 
@@ -91,4 +93,3 @@ onMounted(() => {
   }
 }
 </style>
-      

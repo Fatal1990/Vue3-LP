@@ -1,17 +1,16 @@
 <template>
   <div>
-    <header>
-      <div></div>
-      <button
-        v-for="(item, index) in languageList"
-        :key="index"
-        @click="() => toggleLanguage(item)"
-      >
-        {{ item }}
-      </button>
-      <NuxtLink to="/warranty">Гарантия</NuxtLink>
-      <NuxtLink to="/">Главная</NuxtLink>
-      <NuxtLink to="/Header">Header</NuxtLink>
+    <header class="header" ref="header">
+      <div class="header__wrapper">
+        <AdditionalInfo class="header__additional" />
+        <MainInfo
+          class="header__main-info"
+          :class="{ active: activeScroll }"
+          @getPosition="getPosition"
+          :heightHeader="heightHeader"
+        />
+        <ModalMenu />
+      </div>
     </header>
 
     <div>
@@ -22,6 +21,10 @@
 
 <script setup>
 import { useLanguageFilterStore } from '~~/store/languageFilterStore';
+import AdditionalInfo from '~~/components/header/sections/AdditionalInfo.vue';
+import MainInfo from '~~/components/header/sections/MainInfo.vue';
+import ModalMenu from '~~/components/header/sections/ModalMenu.vue';
+import ModalCatalog from '~~/components/header/sections/ModalCatalog.vue';
 
 const lang = useLanguageFilterStore();
 
@@ -30,6 +33,36 @@ const languageList = lang.getFiltersList;
 const toggleLanguage = (item) => {
   lang.setLanguage(item);
 };
+
+const headerPosition = ref(0);
+const heightHeader = ref(0);
+const activeScroll = ref(false);
+
+const header = ref(null);
+
+function getPosition(position) {
+  headerPosition.value = Math.round(position);
+}
+
+function getHeightHeader() {
+  heightHeader.value = header.value.offsetHeight;
+}
+
+function stateHeader() {
+  if (window.scrollY >= headerPosition.value) {
+    activeScroll.value = true;
+  } else {
+    activeScroll.value = false;
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', stateHeader);
+
+  getHeightHeader();
+  window.addEventListener('resize', getHeightHeader);
+  window.addEventListener('scroll', getHeightHeader);
+});
 </script>
 
 <style scoped></style>

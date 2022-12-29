@@ -10,10 +10,8 @@
         >
           <div class="catalog__item-wrapper">
             <div class="catalog__image">
-              <img
-                :src="`/_nuxt/public/icons/${item.image}`"
-                :alt="item.title"
-              />
+              <!--<img :src="`/icons/${item.image}`" :alt="item.title" />-->
+              <SvgIcon :name="item.image" />
             </div>
             <span class="catalog__title">{{ item.title }}</span>
           </div>
@@ -99,7 +97,9 @@
 </template>
 
 <script setup>
-import { useHeaderlStore } from "~~/store/headerStore";
+import { useHeaderlStore } from '~~/store/headerStore';
+
+import SvgIcon from '~~/components/SvgIcon.vue';
 
 const header = useHeaderlStore();
 const menuItems = header.getModalCatalog;
@@ -118,7 +118,7 @@ const props = defineProps({
   nullState: { type: Boolean, required: false },
 });
 
-const emits = defineEmits(["catalogModal", "heightContent"]);
+const emits = defineEmits(['catalogModal', 'heightContent']);
 
 watch(nullState, (currentState) => {
   if (currentState) {
@@ -147,14 +147,14 @@ function resizeCatalog() {
 }
 
 function sendEmits() {
-  emits("catalogModal", modal.value);
-  emits("heightContent", content.value.scrollHeight);
+  emits('catalogModal', modal.value);
+  emits('heightContent', content.value.scrollHeight);
 }
 
 onMounted(() => {
   sendEmits();
 
-  window.addEventListener("resize", resizeCatalog);
+  window.addEventListener('resize', resizeCatalog);
 });
 </script>
 
