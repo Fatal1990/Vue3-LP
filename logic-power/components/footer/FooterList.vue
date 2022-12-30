@@ -5,13 +5,26 @@
         {{ title }}
       </h4>
       <div class="content__title-mob-arrow">
-        <img class="content__title-mob-arrow-img" src="@/assets/icons/nav-arrow-down.svg" alt=""
-          :class="{ active: isActive }" />
+        <img
+          class="content__title-mob-arrow-img"
+          src="@/assets/icons/nav-arrow-down.svg"
+          alt=""
+          :class="{ active: isActive }"
+        />
       </div>
     </div>
-    <div class="content__block-list-w" :class="{ active: isActive }" :style="{ '--list-height': listHeight + 'px' }">
+    <div
+      class="content__block-list-w"
+      :class="{ active: isActive }"
+      :style="{ '--list-height': listHeight + 'px' }"
+    >
       <ul class="content__block-list" :class="{ thin: thin }" ref="listOfItem">
-        <li class="content__block-list-item" v-for="item of list" :key="item.id" ref="ProdItem">
+        <li
+          class="content__block-list-item"
+          v-for="item of list"
+          :key="item.id"
+          ref="ProdItem"
+        >
           <a class="content__block-list-link" href="#"> {{ item.title }}</a>
         </li>
       </ul>
@@ -20,41 +33,22 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import { Prop } from "vue-property-decorator";
+<script setup>
+const { title, list, thin } = defineProps(['title', 'list', 'thin']);
+const listOfItem = ref(null);
 
-interface FooterListItem {
-  id: number;
-  title: string;
-}
+let isActive = false;
+let listHeight = 0;
 
-@Options({
-  name: "FooterListComponent",
-})
-export default class FooterListComponent extends Vue {
-  @Prop({ required: true }) title: string;
-  @Prop({ required: true }) list: FooterListItem[];
+const dropDownProd = () => {
+  if (innerWidth <= 680) {
+    if (listHeight === 0) {
+      listHeight = listOfItem.value.scrollHeight;
+    } else listHeight = 0;
 
-  @Prop({ default: false }) thin: boolean;
-
-  declare $refs: {
-    listOfItem: HTMLElement;
-  };
-
-  isActive: boolean = false;
-  listHeight: number = 0;
-
-  dropDownProd() {
-    if (innerWidth <= 680) {
-      if (this.listHeight === 0) {
-        this.listHeight = this.$refs.listOfItem.scrollHeight;
-      } else this.listHeight = 0;
-
-      this.isActive = !this.isActive;
-    }
+    isActive = !isActive;
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

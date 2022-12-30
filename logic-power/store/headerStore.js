@@ -74,7 +74,7 @@ export const useHeaderlStore = defineStore({
         aboutCompany: [
           'Оплата и Доставка',
           'История компании',
-          'Сотрудничесвто',
+          'Сотрудничество',
         ],
         services: ['Инструкции', 'Видео-материалы'],
       },

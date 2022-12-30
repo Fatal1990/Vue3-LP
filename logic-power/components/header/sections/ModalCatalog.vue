@@ -99,7 +99,7 @@
 <script setup>
 import { useHeaderlStore } from '~~/store/headerStore';
 
-import SvgIcon from '~~/components/SvgIcon.vue';
+import SvgIcon from '~~/components/SvgIconLocal.vue';
 
 const header = useHeaderlStore();
 const menuItems = header.getModalCatalog;

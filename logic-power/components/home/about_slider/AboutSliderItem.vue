@@ -1,29 +1,25 @@
 <template>
   <li class="slider__list-item">
     <div class="slider__list-item-img-w">
-      <img
-          class="slider__list-item-img"
-          src="@/assets/img/mainAboutUsImg.png"
-          alt=""
-      />
+      <img class="slider__list-item-img" src="/img/mainAboutUsImg.png" alt="" />
     </div>
     <div class="slider__list-item-info">
       <p class="slider__list-item-info-title">{{ aboutCard.title }}</p>
       <p
-          class="slider__list-item-info-text"
-          :class="{
+        class="slider__list-item-info-text"
+        :class="{
           active: isActive,
         }"
-          ref="itemText"
+        ref="itemText"
       >
-      {{ aboutCard.text }}
+        {{ aboutCard.text }}
       </p>
       <div
-          class="slider__list-item-btn"
-          v-if="isMobile && isTextBiggerThanWrapper"
-          @click="isActive = !isActive"
+        class="slider__list-item-btn"
+        v-if="isMobile && isTextBiggerThanWrapper"
+        @click="isActive = !isActive"
       >
-        {{ isActive ? "Свернуть" : "Развернуть" }}
+        {{ isActive ? 'Свернуть' : 'Развернуть' }}
       </div>
     </div>
     <!-- <slot name="title"></slot> -->
@@ -31,16 +27,16 @@
 </template>
 
 <script lang="ts">
-import {AboutCard} from "@/models/view/about_slider";
-import {Component, Vue} from "~/tools/version-types";
-import {Prop} from "vue-property-decorator";
+import { AboutCard } from '@/models/view/about_slider';
+import { Component, Vue } from '~/tools/version-types';
+import { Prop } from 'vue-property-decorator';
 
 @Component({
-  name: "AboutSliderItemComponent",
+  name: 'AboutSliderItemComponent',
 })
 export default class AboutSliderItemComponent extends Vue {
-  @Prop({required: true}) aboutCard: AboutCard;
-  @Prop({required: true}) isMobile: boolean;
+  @Prop({ required: true }) aboutCard: AboutCard;
+  @Prop({ required: true }) isMobile: boolean;
 
   declare $refs: {
     itemText: HTMLElement;
@@ -59,11 +55,11 @@ export default class AboutSliderItemComponent extends Vue {
 
   mounted() {
     this.onResize();
-    window.addEventListener("resize", this.onResize);
+    window.addEventListener('resize', this.onResize);
   }
 
   unmounted() {
-    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener('resize', this.onResize);
   }
 }
 </script>

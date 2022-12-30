@@ -23,9 +23,11 @@
           />
           <div class="card-product__identification">
             <p class="card-product__name-product">
-              {{ product.name.ru }}
+              {{ `${product.name.ru} ${product.sku}` }}
             </p>
-            <p class="card-product__code">{{ parseInt(product.code) }}</p>
+            <p class="card-product__code">
+              {{ `Код: ${parseInt(product.code)}` }}
+            </p>
           </div>
         </div>
         <CardFooter

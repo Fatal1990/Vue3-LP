@@ -35,7 +35,7 @@
       />
       <ButtonSearch class="search__button" />
     </form>
-   <!--  <div
+    <!--  <div
       class="search__result"
       :class="{ search: inputValue.value.length }"
       v-if="showResult"
@@ -78,7 +78,7 @@
             :key="index"
           >
             <div class="search__image-item">
-              <img src="@/assets/img/item-result-search.png" alt="item name" />
+              <img src="/img/item-result-search.png" alt="item name" />
             </div>
             <div class="search__selected-info">
               <h2 class="search__subtitle">{{ item.itemName }}</h2>
@@ -97,7 +97,7 @@
             :key="index"
           >
             <div class="search__image-item">
-              <img src="@/assets/img/item-result-search.png" alt="item name" />
+              <img src="/img/item-result-search.png" alt="item name" />
             </div>
             <div class="search__selected-info">
               <h2 class="search__subtitle">{{ item.itemName }}</h2>
@@ -112,10 +112,10 @@
 </template>
 
 <script setup>
-import ButtonSearch from "./ButtonSearch.vue";
-import { useHeaderlStore } from "~~/store/headerStore";
+import ButtonSearch from './ButtonSearch.vue';
+import { useHeaderlStore } from '~~/store/headerStore';
 
-defineProps(["value"]);
+defineProps(['value']);
 
 const header = useHeaderlStore();
 const resultSearch = header.getResult;
@@ -126,7 +126,6 @@ const inputValue = header.getInputSerach;
 
 const showResult = ref(false);
 let activeEnter = ref(false);
-
 </script>
 
 <style lang="scss" scoped>
@@ -310,4 +309,3 @@ let activeEnter = ref(false);
   }
 }
 </style>
-      

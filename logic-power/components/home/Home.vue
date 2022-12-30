@@ -2,10 +2,12 @@
   <section class="main-page">
     <!-- <MainSlider /> -->
     <div class="main-page__slider-category-block">
-      <!-- <SliderCategoryComponent></SliderCategoryComponent> -->
+      <SliderCategoryComponent></SliderCategoryComponent>
       <div class="main-page__about-company">
         <div class="main-page__about-company-title-w">
-          <h5 class="main-page__about-company-title">{{ _T('@About company') }}</h5>
+          <h5 class="main-page__about-company-title">
+            {{ _T('@About company') }}
+          </h5>
           <p class="main-page__about-company-text">
             {{ _T('@History of company development') }}
           </p>
@@ -22,7 +24,11 @@
     </div>
     <div class="main-page__b2b-block">
       <div class="main-page__b2b-bgr">
-        <img class="main-page__b2b-bgr-img" src="../../assets/img/mainB2bBckgrnd.png" alt="" />
+        <img
+          class="main-page__b2b-bgr-img"
+          src="/img/mainB2bBckgrnd.png"
+          alt=""
+        />
       </div>
       <div class="main-page__b2b-block-container">
         <div class="main-page__b2b-logo">
@@ -70,7 +76,7 @@
           ТМ LOGICPOWER – 100% {{ _T('@Manufacturer quality assurance') }}
         </p>
       </div>
-      <!-- <CooperationSliderComponent /> -->
+      <CooperationSliderComponent />
     </div>
     <div class="main-page__news-block">
       <div class="main-page__news-title-w">
@@ -87,7 +93,11 @@
         <div class="main-page__news-card">
           <a class="main-page__news-link" href="#">
             <div class="main-page__news-card-img-cont">
-              <img class="main-page__news-card-img" src="../../assets/img/mainNewsImg.png" alt="" />
+              <img
+                class="main-page__news-card-img"
+                src="/img/mainNewsImg.png"
+                alt=""
+              />
             </div>
           </a>
           <div class="main-page__news-card-info">
@@ -101,7 +111,11 @@
         <div class="main-page__news-card">
           <a class="main-page__news-link" href="#">
             <div class="main-page__news-card-img-cont">
-              <img class="main-page__news-card-img" src="../../assets/img/mainBlogImg.png" alt="" />
+              <img
+                class="main-page__news-card-img"
+                src="/img/mainBlogImg.png"
+                alt=""
+              />
             </div>
           </a>
           <div class="main-page__news-card-info">
@@ -115,7 +129,11 @@
         <div class="main-page__news-card">
           <a class="main-page__news-link" href="#">
             <div class="main-page__news-card-img-cont">
-              <img class="main-page__news-card-img" src="../../assets/img/mainFaqImg.png" alt="" />
+              <img
+                class="main-page__news-card-img"
+                src="/img/mainFaqImg.png"
+                alt=""
+              />
             </div>
           </a>
           <div class="main-page__news-card-info">
@@ -131,27 +149,11 @@
   </section>
 </template>
 
-<script lang="ts">
-import SliderCategoryComponent from "./SliderCategory.vue";
-import CooperationSliderComponent from "./CooperationSlider.vue";
-import AboutUsSliderComponent from "./about_slider/AboutUsSlider.vue";
-import Component from "nuxt-class-component";
-import Vue from "vue";
-import MainSlider from "./main_slider/MainSlider.vue";
-
-@Component({
-  components: {
-    MainSlider,
-    SliderCategoryComponent,
-    CooperationSliderComponent,
-    AboutUsSliderComponent,
-  },
-})
-export default class HomeComponent extends Vue {
-  mounted() {
-    this.$route;
-  }
-}
+<script setup>
+import SliderCategoryComponent from './SliderCategory.vue';
+import CooperationSliderComponent from './CooperationSlider.vue';
+/*import AboutUsSliderComponent from './about_slider/AboutUsSlider.vue';
+import MainSlider from './main_slider/MainSlider.vue';*/
 </script>
 
 <style lang="scss">

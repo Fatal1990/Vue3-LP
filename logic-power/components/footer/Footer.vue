@@ -3,7 +3,11 @@
     <section class="footer__cont">
       <div class="content">
         <div class="content__logo-img-w">
-          <img class="content__logo-img" src="@/assets/icons/footerMainLogo.svg" alt="" />
+          <img
+            class="content__logo-img"
+            src="@/assets/icons/footerMainLogo.svg"
+            alt=""
+          />
         </div>
         <FooterList :thin="true" :title="'Продукция'" :list="prodList">
           <a class="content__catalog-link" href="#">Перейти в католог</a>
@@ -21,14 +25,30 @@
           </div>
           <div class="contacts__block-unit">
             <a class="contacts__block-link" href="mailto:support@logicfox.ua">
-              <svg class="contacts__block-link-img" width="29" height="18" viewBox="0 0 29 18" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.9062 8.99865L29.0014 16.884V1.11328L17.9062 8.99865Z" fill="white" />
-                <path d="M11.0951 8.99775L0 1.11133V16.8831L11.0951 8.99775Z" fill="white" />
+              <svg
+                class="contacts__block-link-img"
+                width="29"
+                height="18"
+                viewBox="0 0 29 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17.9062 8.99865L29.0014 16.884V1.11328L17.9062 8.99865Z"
+                  fill="white"
+                />
+                <path
+                  d="M11.0951 8.99775L0 1.11133V16.8831L11.0951 8.99775Z"
+                  fill="white"
+                />
                 <path
                   d="M16.3367 10.1133L14.8381 11.1783L14.5026 11.4174L13.9221 11.005L12.6583 10.1153L1.57031 17.9967H27.4359L16.3367 10.1133Z"
-                  fill="white" />
-                <path d="M14.4985 9.19062L16.3286 7.88245L27.4237 -0.00390625H1.57031L14.4985 9.19062Z" fill="white" />
+                  fill="white"
+                />
+                <path
+                  d="M14.4985 9.19062L16.3286 7.88245L27.4237 -0.00390625H1.57031L14.4985 9.19062Z"
+                  fill="white"
+                />
               </svg>
               <span class="contacts__block-link-text">Задать вопрос</span>
             </a>
@@ -39,7 +59,11 @@
         </div>
         <div class="content__copyrights">
           <div class="content__logo-img-w">
-            <img class="content__logo-img" src="@/assets/icons/footerMainLogo.svg" alt="" />
+            <img
+              class="content__logo-img"
+              src="@/assets/icons/footerMainLogo.svg"
+              alt=""
+            />
           </div>
           <div class="content__copyrights-unit">
             <p class="content__copyrights-caption">
@@ -51,10 +75,18 @@
           </div>
           <div class="content__copyrights-unit">
             <div class="content__copyrights-img-w">
-              <img class="content__copyrights-img" src="@/assets/icons/footerMasterCardIcon.svg" alt="" />
+              <img
+                class="content__copyrights-img"
+                src="@/assets/icons/footerMasterCardIcon.svg"
+                alt=""
+              />
             </div>
             <div class="content__copyrights-img-w">
-              <img class="content__copyrights-img" src="@/assets/icons/footerVisaIcon.svg" alt="" />
+              <img
+                class="content__copyrights-img"
+                src="@/assets/icons/footerVisaIcon.svg"
+                alt=""
+              />
             </div>
           </div>
         </div>
@@ -69,7 +101,11 @@
             </p>
           </div>
           <form class="subscription__block-mailing-form">
-            <input class="subscription__block-mailing-input" type="email" placeholder="E-mail" />
+            <input
+              class="subscription__block-mailing-input"
+              type="email"
+              placeholder="E-mail"
+            />
             <button class="subscription__block-mailing-btn">Подписаться</button>
           </form>
         </div>
@@ -79,43 +115,95 @@
             <ul class="subscription__block-social-list">
               <li class="subscription__block-social-list-item">
                 <a href="" class="subscription__block-social-list-item-link">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       d="M17 2H14C12.6739 2 11.4021 2.52678 10.4645 3.46447C9.52678 4.40215 9 5.67392 9 7V10H6V14H9V22H13V14H16L17 10H13V7C13 6.73478 13.1054 6.48043 13.2929 6.29289C13.4804 6.10536 13.7348 6 14 6H17V2Z"
-                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      stroke="white"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </a>
               </li>
               <li class="subscription__block-social-list-item">
                 <a href="" class="subscription__block-social-list-item-link">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 12L10.5 14V10L14 12Z" fill="white" stroke="white" stroke-width="1.5"
-                      stroke-linecap="round" stroke-linejoin="round" />
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 12L10.5 14V10L14 12Z"
+                      fill="white"
+                      stroke="white"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                     <path
                       d="M2 12.708V11.2929C2 8.39754 2 6.94988 2.90549 6.01841C3.81099 5.08694 5.23656 5.04662 8.08769 4.96598C9.43873 4.92777 10.8188 4.90039 12 4.90039C13.1812 4.90039 14.5613 4.92777 15.9123 4.96598C18.7634 5.04662 20.189 5.08694 21.0945 6.01841C22 6.94988 22 8.39754 22 11.2929V12.708C22 15.6033 22 17.0509 21.0945 17.9824C20.189 18.9139 18.7635 18.9542 15.9124 19.0349C14.5613 19.0731 13.1812 19.1005 12 19.1005C10.8188 19.1005 9.43867 19.0731 8.0876 19.0349C5.23651 18.9542 3.81097 18.9139 2.90548 17.9824C2 17.0509 2 15.6033 2 12.708Z"
-                      stroke="white" stroke-width="1.5" />
+                      stroke="white"
+                      stroke-width="1.5"
+                    />
                   </svg>
                 </a>
               </li>
               <li class="subscription__block-social-list-item">
                 <a href="" class="subscription__block-social-list-item-link">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
-                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      stroke="white"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                     <path
                       d="M3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16Z"
-                      stroke="white" stroke-width="1.5" />
-                    <path d="M17.5 6.51L17.51 6.49889" stroke="white" stroke-width="1.5" stroke-linecap="round"
-                      stroke-linejoin="round" />
+                      stroke="white"
+                      stroke-width="1.5"
+                    />
+                    <path
+                      d="M17.5 6.51L17.51 6.49889"
+                      stroke="white"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </a>
               </li>
               <li class="subscription__block-social-list-item">
                 <a href="" class="subscription__block-social-list-item-link">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 5L2 12.5L9 13.5M21 5L18.5 20L9 13.5M21 5L9 13.5M9 13.5V19L12.2488 15.7229"
-                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21 5L2 12.5L9 13.5M21 5L18.5 20L9 13.5M21 5L9 13.5M9 13.5V19L12.2488 15.7229"
+                      stroke="white"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </a>
               </li>
@@ -123,10 +211,18 @@
           </div>
           <div class="content__copyrights-unit">
             <div class="content__copyrights-img-w">
-              <img class="content__copyrights-img" src="@/assets/icons/footerMasterCardIcon.svg" alt="" />
+              <img
+                class="content__copyrights-img"
+                src="@/assets/icons/footerMasterCardIcon.svg"
+                alt=""
+              />
             </div>
             <div class="content__copyrights-img-w">
-              <img class="content__copyrights-img" src="@/assets/icons/footerVisaIcon.svg" alt="" />
+              <img
+                class="content__copyrights-img"
+                src="@/assets/icons/footerVisaIcon.svg"
+                alt=""
+              />
             </div>
           </div>
         </div>
@@ -135,42 +231,34 @@
   </footer>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import FooterList from "./FooterList.vue";
+<script setup>
+import FooterList from './FooterList.vue';
+const prodList = [
+  { id: 1, title: 'Комплекты для резервного питания' },
+  { id: 2, title: 'Источники бесперебойного питания' },
+  { id: 3, title: 'Аккумуляторы AGM' },
+  { id: 4, title: 'Литиевые аккумуляторы' },
+  { id: 5, title: 'Альтернативная энергетика' },
+  { id: 6, title: 'Стабилизаторы напряжения' },
+  { id: 7, title: 'Аккумуляторы SILVER' },
+  { id: 8, title: 'Электротранспорт' },
+  { id: 9, title: 'Автомобильные аккумуляторы' },
+  { id: 10, title: 'Компьютерная периферия' },
+  { id: 11, title: 'Компьютерная периферия' },
+];
 
-@Options({
-  name: "FooterComponent",
-  components: { FooterList },
-})
-export default class FooterComponent extends Vue {
-  prodList: any[] = [
-    { id: 1, title: "Комплекты для резервного питания" },
-    { id: 2, title: "Источники бесперебойного питания" },
-    { id: 3, title: "Аккумуляторы AGM" },
-    { id: 4, title: "Литиевые аккумуляторы" },
-    { id: 5, title: "Альтернативная энергетика" },
-    { id: 6, title: "Стабилизаторы напряжения" },
-    { id: 7, title: "Аккумуляторы SILVER" },
-    { id: 8, title: "Электротранспорт" },
-    { id: 9, title: "Автомобильные аккумуляторы" },
-    { id: 10, title: "Компьютерная периферия" },
-    { id: 11, title: "Компьютерная периферия" },
-  ];
-
-  infoList: any[] = [
-    { id: 1, title: "О компании" },
-    { id: 2, title: "Контакты" },
-    { id: 3, title: "Блог" },
-    { id: 4, title: "Оплата и Доставка" },
-    { id: 5, title: "Гарантия и Сервисное обслуживание" },
-    { id: 6, title: "Политика конфиденциальности" },
-    { id: 7, title: "Договор публичной оферты" },
-    { id: 8, title: "Сотрудничество" },
-    { id: 9, title: "Инструкции" },
-    { id: 10, title: "Форум" },
-  ];
-}
+const infoList = [
+  { id: 1, title: 'О компании' },
+  { id: 2, title: 'Контакты' },
+  { id: 3, title: 'Блог' },
+  { id: 4, title: 'Оплата и Доставка' },
+  { id: 5, title: 'Гарантия и Сервисное обслуживание' },
+  { id: 6, title: 'Политика конфиденциальности' },
+  { id: 7, title: 'Договор публичной оферты' },
+  { id: 8, title: 'Сотрудничество' },
+  { id: 9, title: 'Инструкции' },
+  { id: 10, title: 'Форум' },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -205,7 +293,7 @@ export default class FooterComponent extends Vue {
   @include flex-container;
   gap: 24px 16px;
 
-  &>.content__logo-img-w {
+  & > .content__logo-img-w {
     display: none;
 
     @include mobile {
@@ -246,7 +334,7 @@ export default class FooterComponent extends Vue {
     text-transform: uppercase;
     color: var(--color-primary-base);
 
-    &+.contacts__text:hover {
+    & + .contacts__text:hover {
       color: var(--color-primary-dark);
     }
   }
@@ -294,11 +382,14 @@ export default class FooterComponent extends Vue {
     }
   }
 
-  &__logo-img {}
+  &__logo-img {
+  }
 
-  &__copyrights-img-w {}
+  &__copyrights-img-w {
+  }
 
-  &__copyrights-img {}
+  &__copyrights-img {
+  }
 
   &__copyrights-unit {
     @include flex-container(column, stretch, center);
@@ -310,7 +401,7 @@ export default class FooterComponent extends Vue {
       text-align: center;
     }
 
-    &+& {
+    & + & {
       @include flex-container;
       gap: 0;
     }
@@ -534,7 +625,8 @@ export default class FooterComponent extends Vue {
     gap: 24px;
   }
 
-  &__block-social-list-item {}
+  &__block-social-list-item {
+  }
 
   &__block-social-list-item-link {
     font-size: 0;

@@ -3,7 +3,7 @@
     <div v-if="!isMobile" class="category-slider">
       <div class="category-slider__prod">
         <div class="category-slider__prod-title-w">
-          <h3 class="category-slider__prod-title">{{_T('@Products')}}</h3>
+          <h3 class="category-slider__prod-title">{{ _T('@Products') }}</h3>
           <div class="category-slider__prod-line"></div>
         </div>
         <div class="category-slider__prod-list-w">
@@ -46,42 +46,44 @@
             :key="index"
           >
             <div class="category-slider__category-img">
-              <img :src="require(`../../assets/img/${slide.img}.png`)" alt="" />
+              <img :src="`/img/${slide.img}.png`" alt="" />
             </div>
             <div class="category-slider__category-title-w">
               <h4 class="category-slider__category-title">{{ slide.title }}</h4>
               <p class="category-slider__category-description">
                 {{ slide.text }}
               </p>
-              <a :href="`${slide.link}`" class="category-slider__category-link"
-                >{{_T('@Go to section')}}</a
+              <a
+                :href="`${slide.link}`"
+                class="category-slider__category-link"
+                >{{ _T('@Go to section') }}</a
               >
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div v-if="isMobile" class="categoty-list">
-      <h3 class="categoty-list__title">{{_T('@Products')}}</h3>
-      <div class="categoty-list__container">
+    <div v-if="isMobile" class="category-list">
+      <h3 class="category-list__title">{{ _T('@Products') }}</h3>
+      <div class="category-list__container">
         <a
-          class="categoty-list__item"
+          class="category-list__item"
           v-for="(item, index) in sliderData"
           :key="index"
         >
-          <div class="categoty-list__item-img-w">
+          <div class="category-list__item-img-w">
             <img
-              class="categoty-list__item-img"
-              :src="require(`../../assets/img/${item.img}.png`)"
+              class="category-list__item-img"
+              :src="`/img/${item.img}.png`"
               alt=""
             />
           </div>
-          <h4 class="categoty-list__item-title">{{ item.title }}</h4>
+          <h4 class="category-list__item-title">{{ item.title }}</h4>
         </a>
       </div>
-      <a class="categoty-list__link" href="#">
+      <a class="category-list__link" href="#">
         <svg
-          class="categoty-list__link-img"
+          class="category-list__link-img"
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -103,184 +105,169 @@
             stroke-linejoin="round"
           />
         </svg>
-        <span class="categoty-list__link-text">{{_T('@All categories')}}</span>
+        <span class="category-list__link-text">{{
+          _T('@All categories')
+        }}</span>
       </a>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import Component from 'nuxt-class-component'
-import Vue from 'vue'
+<script setup>
+const leftWrapper = ref(null);
+const linkListEl = ref(null);
+const linkItems = ref(null);
+const selector = ref(null);
 
-@Component({
-  name: "SliderCategoryComponent",
-})
-export default class SliderCategoryComponent extends Vue {
-  declare $refs: {
-    leftWrapper: HTMLElement;
-    linkListEl: HTMLElement;
-    linkItems: HTMLElement[];
-    selector: HTMLElement;
-  };
+const sliderData = [
+  {
+    img: 'sliderPromImg',
+    title: 'Комплектующие для ПК',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'google.com',
+  },
+  {
+    img: 'sliderPromImg',
+    title: 'EGM аккумуляторы',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'logicpower.ua',
+  },
+  {
+    img: 'sliderPromImg',
+    title: 'Комплектующие для ПК',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'google.com',
+  },
+  {
+    img: 'sliderPromImg',
+    title: 'EGM аккумуляторы',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'logicpower.ua',
+  },
+  {
+    img: 'sliderPromImg',
+    title: 'Комплектующие для ПК',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'google.com',
+  },
+  {
+    img: 'sliderPromImg',
+    title: 'EGM аккумуляторы',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'logicpower.ua',
+  },
+  {
+    img: 'sliderPromImg',
+    title: 'Комплектующие для ПК',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'google.com',
+  },
+  {
+    img: 'sliderPromImg',
+    title: 'EGM аккумуляторы',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'logicpower.ua',
+  },
+  {
+    img: 'sliderPromImg',
+    title: 'Комплектующие для ПК',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'google.com',
+  },
+  {
+    img: 'sliderPromImg',
+    title: 'EGM аккумуляторы',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'logicpower.ua',
+  },
+  {
+    img: 'sliderPromImg',
+    title: 'Комплектующие для ПК',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'google.com',
+  },
+  {
+    img: 'sliderPromImg',
+    title: 'EGM аккумуляторы',
+    text: 'Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения',
+    link: 'logicpower.ua',
+  },
+];
 
-  sliderData: any = [
-    {
-      img: "sliderPromImg",
-      title: "Комплектующие для ПК",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "google.com",
-    },
-    {
-      img: "sliderPromImg",
-      title: "EGM аккумуляторы",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "logicpower.ua",
-    },
-    {
-      img: "sliderPromImg",
-      title: "Комплектующие для ПК",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "google.com",
-    },
-    {
-      img: "sliderPromImg",
-      title: "EGM аккумуляторы",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "logicpower.ua",
-    },
-    {
-      img: "sliderPromImg",
-      title: "Комплектующие для ПК",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "google.com",
-    },
-    {
-      img: "sliderPromImg",
-      title: "EGM аккумуляторы",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "logicpower.ua",
-    },
-    {
-      img: "sliderPromImg",
-      title: "Комплектующие для ПК",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "google.com",
-    },
-    {
-      img: "sliderPromImg",
-      title: "EGM аккумуляторы",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "logicpower.ua",
-    },
-    {
-      img: "sliderPromImg",
-      title: "Комплектующие для ПК",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "google.com",
-    },
-    {
-      img: "sliderPromImg",
-      title: "EGM аккумуляторы",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "logicpower.ua",
-    },
-    {
-      img: "sliderPromImg",
-      title: "Комплектующие для ПК",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "google.com",
-    },
-    {
-      img: "sliderPromImg",
-      title: "EGM аккумуляторы",
-      text: "Благодаря форме выходного напряжения в виде правильной синусоиды, стабилизаторы удерживают максимально точные показатели напряжения",
-      link: "logicpower.ua",
-    },
-  ];
+let currentSlide = 0;
+let linksTranslateY = 0;
+let isMobile = false;
 
-  currentSlide: number = 0;
-  linksTranslateY: number = 0;
-  isMobile: boolean = false;
+const slideCount = sliderData.length;
 
-  get SlideCount() {
-    return this.sliderData.length;
+const step = () => 100 / slideCount;
+
+const TranslateY = () => currentSlide * -step();
+
+const calcHeight = () => {
+  const leftWrapRect = leftWrapper.value.getBoundingClientRect();
+  const linkListRect = linkListEl.value.getBoundingClientRect();
+  const activeLinkRect = linkItems.value[currentSlide].getBoundingClientRect();
+
+  const linkBottomFromWrapperCenter =
+    leftWrapRect.height / 2 - (activeLinkRect.bottom - leftWrapRect.top);
+
+  if (linksTranslateY + linkBottomFromWrapperCenter > 0) {
+    linksTranslateY = 0;
+  } else if (
+    linksTranslateY + linkBottomFromWrapperCenter <
+    leftWrapRect.height - linkListRect.height
+  ) {
+    linksTranslateY = leftWrapRect.height - linkListRect.height;
+  } else {
+    linksTranslateY += linkBottomFromWrapperCenter;
   }
+};
 
-  get TranslateY() {
-    return this.currentSlide * -this.Step;
-  }
+const prevSlide = () => {
+  if (currentSlide - 1 < 0) currentSlide = slideCount() - 1;
+  else currentSlide -= 1;
 
-  get Step() {
-    return 100 / this.SlideCount;
-  }
+  calcHeight();
+};
 
-  prevSlide() {
-    if (this.currentSlide - 1 < 0) this.currentSlide = this.SlideCount - 1;
-    else this.currentSlide = this.currentSlide - 1;
+const nextSlide = () => {
+  if (currentSlide + 1 >= slideCount) currentSlide = 0;
+  else currentSlide += 1;
 
-    this.calcHeight();
-  }
+  this.calcHeight();
+};
 
-  nextSlide() {
-    if (this.currentSlide + 1 >= this.SlideCount) this.currentSlide = 0;
-    else this.currentSlide = this.currentSlide + 1;
+const goToSlide = (index) => {
+  currentSlide = index;
+  calcHeight();
+};
 
-    this.calcHeight();
-  }
+const calcIsMobile = () => {
+  const mobWidth = getComputedStyle(selector.value).getPropertyValue(
+    '--mobile-width',
+  );
+  isMobile = window.innerWidth <= parseInt(mobWidth);
+};
 
-  goToSlide(index) {
-    this.currentSlide = index;
-    this.calcHeight();
-  }
-
-  calcHeight() {
-    const leftWrapRect = this.$refs.leftWrapper.getBoundingClientRect();
-    const linkListRect = this.$refs.linkListEl.getBoundingClientRect();
-    const activeLinkRect =
-      this.$refs.linkItems[this.currentSlide].getBoundingClientRect();
-
-    const linkBottomFromWrapperCenter =
-      leftWrapRect.height / 2 - (activeLinkRect.bottom - leftWrapRect.top);
-
-    if (this.linksTranslateY + linkBottomFromWrapperCenter > 0) {
-      this.linksTranslateY = 0;
-    } else if (
-      this.linksTranslateY + linkBottomFromWrapperCenter <
-      leftWrapRect.height - linkListRect.height
-    ) {
-      this.linksTranslateY = leftWrapRect.height - linkListRect.height;
-    } else {
-      this.linksTranslateY += linkBottomFromWrapperCenter;
-    }
-  }
-
-  calcIsMobile() {
-    const mobWidth = getComputedStyle(this.$refs.selector).getPropertyValue(
-      "--mobile-width"
-    );
-    this.isMobile = window.innerWidth <= parseInt(mobWidth);
-  }
-
-  onResize() {
-    this.calcIsMobile();
-  }
-
-  mounted() {
-    this.onResize();
-    window.addEventListener("resize", this.onResize);
-  }
-
-  unmounted() {
-    window.removeEventListener("resize", this.onResize);
-  }
+function onResize() {
+  calcIsMobile();
 }
+
+onMounted(() => {
+  onResize();
+  window.addEventListener('resize', onResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize);
+});
 </script>
 
 <style lang="scss" scoped>
 .category-slider-selector {
   width: 100%;
-  @extend %flex-column;
+  /*@extend %flex-column;*/
   align-items: center;
 
   --mobile-width: #{$mobile-big-width};
@@ -298,7 +285,7 @@ export default class SliderCategoryComponent extends Vue {
     max-width: 415px;
     width: 100%;
 
-    @extend %flex-column;
+    /*@extend %flex-column;*/
     flex-shrink: 2;
     flex-grow: 1;
 
@@ -311,7 +298,7 @@ export default class SliderCategoryComponent extends Vue {
   }
 
   &__prod-title {
-    @include fontUnify(20, 30, 600);
+    /*@include fontUnify(20, 30, 600);*/
     text-align: center;
     text-transform: uppercase;
 
@@ -336,7 +323,7 @@ export default class SliderCategoryComponent extends Vue {
     position: absolute;
     @include setAbs;
 
-    @extend %flex-column;
+    /*@extend %flex-column;*/
     justify-content: space-between;
     align-items: center;
 
@@ -360,7 +347,7 @@ export default class SliderCategoryComponent extends Vue {
     cursor: pointer;
 
     &:hover span {
-      border-color: $color-main-dark;
+      /*border-color: $color-main-dark;*/
     }
 
     & span {
@@ -373,7 +360,7 @@ export default class SliderCategoryComponent extends Vue {
       transform: rotateZ(45deg) translate(2px, 2px);
 
       &:hover {
-        color: $color-main-dark;
+        /*color: $color-main-dark;*/
       }
     }
   }
@@ -394,7 +381,7 @@ export default class SliderCategoryComponent extends Vue {
     cursor: pointer;
 
     &:hover span {
-      border-color: $color-main-dark;
+      /*border-color: $color-main-dark;*/
     }
 
     & span {
@@ -420,7 +407,7 @@ export default class SliderCategoryComponent extends Vue {
 
     position: relative;
 
-    @extend %flex-column;
+    /*@extend %flex-column;*/
     gap: 16px;
 
     transition: 0.3s ease-in-out;
@@ -430,13 +417,13 @@ export default class SliderCategoryComponent extends Vue {
   }
 
   &__prod-item {
-    @include fontUnify(20, 28);
+    /*@include fontUnify(20, 28);*/
     letter-spacing: 0.02em;
 
     cursor: pointer;
 
     &.prod-item-active {
-      color: $color-main;
+      /*color: $color-main;*/
     }
   }
 
@@ -444,7 +431,7 @@ export default class SliderCategoryComponent extends Vue {
     width: 100%;
     height: 540px;
 
-    @extend %flex-column;
+    /*@extend %flex-column;*/
     justify-content: flex-start;
     align-items: center;
     flex-shrink: 1;
@@ -478,21 +465,21 @@ export default class SliderCategoryComponent extends Vue {
     width: 100%;
     max-width: 920px;
 
-    @extend %flex-column;
+    /*@extend %flex-column;*/
     gap: 16px;
   }
 
   &__category-title {
     width: 100%;
 
-    @include fontUnify(20, 30, 600);
+    /*@include fontUnify(20, 30, 600);*/
     letter-spacing: 0.02em;
     text-align: start;
     text-transform: uppercase;
   }
 
   &__category-description {
-    @include fontUnify;
+    /*@include fontUnify;*/
     letter-spacing: 0.02em;
 
     @include lineClamp(3);
@@ -506,12 +493,12 @@ export default class SliderCategoryComponent extends Vue {
 
     @include flex-container(row, center, center);
 
-    @include fontUnify(20, 30, 600);
+    /*@include fontUnify(20, 30, 600);*/
     text-transform: uppercase;
     color: #ffffff;
 
     border-radius: 6px;
-    background-color: $color-main;
+    /*background-color: $color-main;*/
 
     padding: 8px 0;
     transition: 0.2s ease-in-out;
@@ -519,20 +506,20 @@ export default class SliderCategoryComponent extends Vue {
     cursor: pointer;
 
     &:hover {
-      background-color: $color-main-dark;
+      /*background-color: $color-main-dark;*/
     }
   }
 }
 
-.categoty-list {
+.category-list {
   --gap: 16px;
 
-  @extend %flex-column;
+  /*@extend %flex-column;*/
   align-items: center;
   gap: calc(var(--gap) * 2);
 
   &__title {
-    @include fontUnify(22, 26, 600);
+    /*@include fontUnify(22, 26, 600);*/
     text-align: center;
     text-transform: uppercase;
   }
@@ -554,11 +541,11 @@ export default class SliderCategoryComponent extends Vue {
 
     transition: 0.2s ease-in-out;
     &:hover {
-      color: $color-main;
-      fill: $color-main;
+      /*color: $color-main;
+      fill: $color-main;*/
     }
     &:hover path {
-      stroke: $color-main;
+      /*stroke: $color-main;*/
       transition: 0.2s ease-in-out;
     }
   }
@@ -568,7 +555,7 @@ export default class SliderCategoryComponent extends Vue {
   }
 
   &__link-text {
-    @include fontUnify(20, 28);
+    /*@include fontUnify(20, 28);*/
     letter-spacing: 0.02em;
     text-align: center;
   }
@@ -580,7 +567,7 @@ export default class SliderCategoryComponent extends Vue {
   }
 
   &__item {
-    @extend %flex-column;
+    /*@extend %flex-column;*/
     align-items: center;
     gap: calc(var(--gap) * 2);
 
@@ -593,7 +580,7 @@ export default class SliderCategoryComponent extends Vue {
     padding: 8px;
     transition: 0.2s ease-in-out;
     &:hover {
-      color: $color-main;
+      /*color: $color-main;*/
     }
   }
 
@@ -605,7 +592,7 @@ export default class SliderCategoryComponent extends Vue {
   }
 
   &__item-img {
-    @include absoluteGrow();
+    /*@include absoluteGrow();*/
 
     width: 100%;
     height: 100%;
@@ -615,7 +602,7 @@ export default class SliderCategoryComponent extends Vue {
   }
 
   &__item-title {
-    @include fontUnify(16, 20, 700);
+    /*@include fontUnify(16, 20, 700);*/
     text-align: center;
     text-transform: uppercase;
 

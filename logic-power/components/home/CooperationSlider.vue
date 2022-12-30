@@ -5,11 +5,10 @@
       :class="{ disable: currentSlide <= 0 }"
       @click="prevSlide"
     >
-      <img
+      <SvgIcon
         class="cooperation-slider__arrow-left-img"
-        src="@/assets/icons/mainNavArrowLeftIcon.svg"
-        alt=""
-      >
+        name="mainNavArrowLeftIcon.svg"
+      />
     </div>
     <div class="cooperation-slider__w" ref="slideWrap">
       <div
@@ -29,11 +28,7 @@
           :key="index"
           ref="slideListItem"
         >
-          <img
-            class="cooperation-slider__img"
-            :src="require(`../../assets/img/${item.img}.svg`)"
-            alt=""
-          />
+          <SvgIcon class="cooperation-slider__img" :name="item.img" />
         </div>
       </div>
     </div>
@@ -42,183 +37,165 @@
       :class="{ disable: slideMaxCount === currentSlide }"
       @click="nextSlide"
     >
-      <img
+      <SvgIcon
         class="cooperation-slider__arrow-right-img"
-        src="@/assets/icons/mainNavArrowRightIcon.svg"
-        alt=""
+        name="mainNavArrowRightIcon.svg"
       />
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import Component from 'nuxt-class-component'
-import Vue from 'vue'
+<script setup>
+import SvgIcon from '~/components/SvgIconLocal.vue';
 
-@Component({})
-export default class CooperationSliderComponent extends Vue {
-  sliderData: any = [
-    {
-      id: 1,
-      img: "mainCooperationAtbIcon",
-    },
-    {
-      id: 2,
-      img: "mainCooperationMoyoIcon",
-    },
-    {
-      id: 3,
-      img: "mainCooperationPromIcon",
-    },
-    {
-      id: 4,
-      img: "mainCooperationFIcon",
-    },
-    {
-      id: 5,
-      img: "mainCooperationSilpoIcon",
-    },
-    {
-      id: 6,
-      img: "mainCooperationRozetkaIcon",
-    },
-    {
-      id: 7,
-      img: "mainCooperationRozetkaIcon",
-    },
-    {
-      id: 8,
-      img: "mainCooperationRozetkaIcon",
-    },
-    {
-      id: 9,
-      img: "mainCooperationRozetkaIcon",
-    },
-  ];
+const sliderData = [
+  {
+    id: 1,
+    img: 'mainCooperationAtbIcon',
+  },
+  {
+    id: 2,
+    img: 'mainCooperationMoyoIcon',
+  },
+  {
+    id: 3,
+    img: 'mainCooperationPromIcon',
+  },
+  {
+    id: 4,
+    img: 'mainCooperationFIcon',
+  },
+  {
+    id: 5,
+    img: 'mainCooperationSilpoIcon',
+  },
+  {
+    id: 6,
+    img: 'mainCooperationRozetkaIcon',
+  },
+  {
+    id: 7,
+    img: 'mainCooperationRozetkaIcon',
+  },
+  {
+    id: 8,
+    img: 'mainCooperationRozetkaIcon',
+  },
+  {
+    id: 9,
+    img: 'mainCooperationRozetkaIcon',
+  },
+];
 
-  declare $refs: {
-    slideWrap: HTMLElement;
-    slideListItem: HTMLElement;
-    slideList: HTMLElement;
-  };
+const slideWrap = ref(null);
+const slideListItem = ref(null);
+const slideList = ref(null);
 
-  currentSlide: number = 0;
-  gapLength: number = 0;
-  translateListX: number = 0;
-  slideMaxCount: number = 0;
-  startX: number = 0;
-  endX: number = 0;
+let currentSlide = 0;
+let gapLength = 0;
+let translateListX = 0;
+let slideMaxCount = 0;
+let startX = 0;
+let endX = 0;
 
-  get SlideCount() {
-    return this.sliderData.length;
-  }
+const slideCount = sliderData.length;
 
-  get Step() {
-    return 100 / this.SlideCount;
-  }
+const step = () => 100 / slideCount;
 
-  get TranslateX() {
-    const slideItemRect =
-      this.$refs.slideListItem[this.currentSlide].getBoundingClientRect();
+const translateX = () => {
+  const slideItemRect =
+    slideListItem.value[currentSlide].getBoundingClientRect();
 
-    return (
-      -slideItemRect.width * this.currentSlide -
-      this.gapLength * this.currentSlide
-    );
-  }
+  return -slideItemRect.width * currentSlide - gapLength * currentSlide;
+};
 
-  calcItemsLength() {
-    const slideWrapRect = this.$refs.slideWrap.getBoundingClientRect();
-    const slideItemRect =
-      this.$refs.slideListItem[this.currentSlide].getBoundingClientRect();
+const calcItemsLength = () => {
+  const slideWrapRect = slideWrap.value.getBoundingClientRect();
+  const slideItemRect =
+    slideListItem.value[currentSlide].getBoundingClientRect();
 
-    let slideItemsCount = Math.floor(slideWrapRect.width / slideItemRect.width);
+  let slideItemsCount = Math.floor(slideWrapRect.width / slideItemRect.width);
 
-    if (slideItemsCount >= this.SlideCount) slideItemsCount = this.SlideCount;
+  if (slideItemsCount >= slideCount) slideItemsCount = slideCount;
 
-    this.gapLength =
-      (slideWrapRect.width - slideItemsCount * slideItemRect.width) /
-      (slideItemsCount - 1);
+  gapLength =
+    (slideWrapRect.width - slideItemsCount * slideItemRect.width) /
+    (slideItemsCount - 1);
 
-    const slideMaxWidth =
-      (this.sliderData.length - slideItemsCount) * slideItemRect.width +
-      this.gapLength * (this.sliderData.length - slideItemsCount);
+  const slideMaxWidth =
+    (slideCount - slideItemsCount) * slideItemRect.width +
+    gapLength * (slideCount - slideItemsCount);
 
-    this.slideMaxCount = this.sliderData.length - slideItemsCount;
+  slideMaxCount = slideCount - slideItemsCount;
 
-    if (-slideMaxWidth >= this.TranslateX) {
-      this.translateListX = -slideMaxWidth;
-      this.currentSlide = this.slideMaxCount;
-    } else
-      this.translateListX =
-        -slideItemRect.width * this.currentSlide -
-        this.gapLength * this.currentSlide;
-  }
+  if (-slideMaxWidth >= translateX()) {
+    translateListX = -slideMaxWidth;
+    currentSlide = slideMaxCount;
+  } else
+    translateListX =
+      -slideItemRect.width * currentSlide - gapLength * currentSlide;
+};
 
-  nextSlide() {
-    if (this.currentSlide + 1 >= this.SlideCount)
-      this.currentSlide = this.SlideCount;
-    else this.currentSlide = this.currentSlide + 1;
+const nextSlide = () => {
+  if (currentSlide + 1 >= slideCount) currentSlide = slideCount;
+  else currentSlide += 1;
 
-    this.calcItemsLength();
-  }
+  calcItemsLength();
+};
 
-  prevSlide() {
-    if (this.currentSlide - 1 < 0) this.currentSlide = 0;
-    else this.currentSlide = this.currentSlide - 1;
+const prevSlide = () => {
+  if (currentSlide - 1 < 0) currentSlide = 0;
+  else currentSlide -= 1;
 
-    this.calcItemsLength();
-  }
+  calcItemsLength();
+};
 
-  handleTouchStart(e) {
-    this.startX = e.touches[0].clientX;
-    this.endX = 0;
-  }
+function handleTouchStart(e) {
+  startX = e.touches[0].clientX;
+  endX = 0;
+}
 
-  handleTouchMove(e) {
-    this.endX = e.touches[0].clientX;
-  }
+function handleTouchMove(e) {
+  endX = e.touches[0].clientX;
+}
 
-  handleTouchEnd() {
-    const slideItemRect =
-      this.$refs.slideListItem[this.currentSlide].getBoundingClientRect();
-    const slideWrapRect = this.$refs.slideWrap.getBoundingClientRect();
+function handleTouchEnd() {
+  const slideItemRect =
+    slideListItem.value[currentSlide].getBoundingClientRect();
+  const slideWrapRect = slideWrap.value.getBoundingClientRect();
 
-    const mobMaxWidth = this.SlideCount * slideItemRect.width;
+  const mobMaxWidth = slideCount * slideItemRect.width;
 
-    const mobGapStr = getComputedStyle(this.$refs.slideList).getPropertyValue(
-      "--mob-gap"
-    );
-    const mobGap = parseFloat(mobGapStr);
+  const mobGapStr = getComputedStyle(slideList.value).getPropertyValue(
+    '--mob-gap',
+  );
+  const mobGap = parseFloat(mobGapStr);
 
-    const mobWidthToShow =
-      mobMaxWidth + mobGap * (this.SlideCount - 1) - slideWrapRect.width;
-    console.log(mobWidthToShow);
+  const mobWidthToShow =
+    mobMaxWidth + mobGap * (slideCount - 1) - slideWrapRect.width;
 
-    if (this.endX > 0 && this.endX < this.startX)
-      this.translateListX -= slideWrapRect.width / 1.2;
-    else if (this.endX > 0 && this.endX > this.startX)
-      this.translateListX += slideWrapRect.width / 1.2;
+  if (endX > 0 && endX < startX) translateListX -= slideWrapRect.width / 1.2;
+  else if (endX > 0 && endX > startX)
+    translateListX += slideWrapRect.width / 1.2;
 
-    if (this.translateListX >= 0) this.translateListX = 0;
-    else if (this.translateListX <= -mobWidthToShow) {
-      this.translateListX = -mobWidthToShow;
-    }
-  }
-
-  onResize() {
-    this.calcItemsLength();
-  }
-
-  mounted() {
-    this.onResize();
-    window.addEventListener("resize", this.onResize);
-  }
-
-  unmounted() {
-    window.removeEventListener("resize", this.onResize);
+  if (translateListX >= 0) translateListX = 0;
+  else if (translateListX <= -mobWidthToShow) {
+    translateListX = -mobWidthToShow;
   }
 }
+
+function onResize() {
+  calcItemsLength();
+}
+
+onMounted(() => {
+  onResize();
+  window.addEventListener('resize', onResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize);
+});
 </script>
 
 <style lang="scss" scoped>
