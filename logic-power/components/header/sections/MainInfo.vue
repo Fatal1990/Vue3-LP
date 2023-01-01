@@ -12,7 +12,12 @@
           @catalogModal="getModalCatalog"
           @heightContent="getHeightContent"
           :nullState="catalogState"
-          :style="{ '--bottom': heightCatalog > bottomValue - heightHeader ? -(bottomValue - heightHeader) + 'px' : -heightCatalog + 'px'}"
+          :style="{
+            '--bottom':
+              heightCatalog > bottomValue - heightHeader
+                ? -(bottomValue - heightHeader) + 'px'
+                : -heightCatalog + 'px',
+          }"
         />
       </div>
       <Logo class="main-info__logo" />
@@ -24,16 +29,16 @@
 </template>
 
 <script setup>
-import { useHeaderlStore } from "~~/store/headerStore";
-import ButtonBurger from "../UI/ButtonBurger.vue";
-import ButtonCatalog from "../UI/ButtonCatalog.vue";
-import Logo from "../UI/Logo.vue";
-import SearchProduct from "../UI/SearchProduct.vue";
-import ChangeLanguage from "../UI/ChangeLanguage.vue";
-import NavigationMenu from "./NavigationMenu.vue";
-import ModalCatalog from "./ModalCatalog.vue";
+import { useHeaderStore } from '~~/store/headerStore';
+import ButtonBurger from '../UI/ButtonBurger.vue';
+import ButtonCatalog from '../UI/ButtonCatalog.vue';
+import Logo from '../UI/Logo.vue';
+import SearchProduct from '../UI/SearchProduct.vue';
+import ChangeLanguage from '../UI/ChangeLanguage.vue';
+import NavigationMenu from './NavigationMenu.vue';
+import ModalCatalog from './ModalCatalog.vue';
 
-const header = useHeaderlStore();
+const header = useHeaderStore();
 const activeCatalog = header.activeCatalog;
 
 const mainInfo = ref(null);
@@ -44,14 +49,14 @@ const heightCatalog = ref(0);
 const bottomValue = ref(0);
 const catalogState = ref(false);
 
-const emits = defineEmits(["getPosition"]);
+const emits = defineEmits(['getPosition']);
 
 const props = defineProps({
   heightHeader: { type: Number, required: false },
 });
 
 function getPosition() {
-  emits("getPosition", mainInfo.value.getBoundingClientRect().top);
+  emits('getPosition', mainInfo.value.getBoundingClientRect().top);
   getPositionButton();
 }
 
@@ -88,13 +93,13 @@ function getHeightContent(value) {
 
 onMounted(() => {
   getPosition();
-  window.addEventListener("resize", getPosition);
+  window.addEventListener('resize', getPosition);
 
-  window.addEventListener("click", function (event) {
+  window.addEventListener('click', function (event) {
     closeModal(event);
   });
 
-  window.addEventListener("mouseover", function (event) {
+  window.addEventListener('mouseover', function (event) {
     startStateCatalog(event);
   });
 });
@@ -151,4 +156,3 @@ onMounted(() => {
   }
 }
 </style>
-    

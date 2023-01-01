@@ -1,5 +1,5 @@
 <template>
-  <span v-if="icon" v-html="icon" />
+  <span v-if="icon" v-html="icon" :class="attrs.class" />
 </template>
 
 <script setup>
@@ -13,6 +13,8 @@ const icons = Object.fromEntries(
     },
   ),
 );
+
+const attrs = useAttrs();
 
 const icon = name && (await icons?.[name]?.());
 </script>

@@ -69,11 +69,11 @@
 </template>
 
 <script setup>
-import { useHeaderlStore } from "~~/store/headerStore";
+import { useHeaderStore } from '~~/store/headerStore';
 
 const additional = ref(null);
 
-const header = useHeaderlStore();
+const header = useHeaderStore();
 const menuItems = header.getMenuItems;
 </script>
 
@@ -125,4 +125,3 @@ const menuItems = header.getMenuItems;
   }
 }
 </style>
-  

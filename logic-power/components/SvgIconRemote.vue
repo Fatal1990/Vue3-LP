@@ -1,15 +1,20 @@
 <template>
-  <span v-if="icon" v-html="icon" />
+  <span v-if="icon" :class="attrs.class" v-html="icon" />
 </template>
 
 <script setup>
-import axios from 'axios';
-
 const { url } = defineProps(['url']);
 
-const response = await axios.get(url);
+const attrs = useAttrs();
 
-const icon = url && response.data;
+let icon;
+
+try {
+  const response = await useFetch(`/api/remoteSvg?url=${url}`);
+  icon = url && response.data;
+} catch (e) {
+  console.log(e);
+}
 </script>
 
 <style lang="scss"></style>

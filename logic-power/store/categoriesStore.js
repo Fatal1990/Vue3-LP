@@ -4,7 +4,11 @@ import { defineStore } from 'pinia';
 export const useCategoriesStore = defineStore({
   id: 'categoryStore',
   state: () => {
-    return { categories: [], flattenCategories: [] };
+    return {
+      categories: [],
+      flattenCategories: [],
+      headerCategories: [],
+    };
   },
   actions: {
     async fetch() {
@@ -13,6 +17,7 @@ export const useCategoriesStore = defineStore({
       );
       this.categories = data.data;
       this.flattenCategories = categoryFlatten(data.data);
+      this.headerCategories = categoryHeader(data.data);
     },
   },
   getters: {
@@ -22,5 +27,6 @@ export const useCategoriesStore = defineStore({
         state.flattenCategories.find((category) => category.slug === slug);
     },
     getFlattenCategories: (state) => state.flattenCategories,
+    getHeaderCategories: (state) => state.headerCategories,
   },
 });

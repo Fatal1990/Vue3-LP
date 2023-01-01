@@ -18,9 +18,9 @@
 </template>
 
 <script setup>
-import { useHeaderlStore } from "~~/store/headerStore";
+import { useHeaderStore } from '~~/store/headerStore';
 
-const header = useHeaderlStore();
+const header = useHeaderStore();
 const lang = header.getLanguage;
 const changeLang = header.changeLang;
 </script>
@@ -56,4 +56,3 @@ const changeLang = header.changeLang;
   }
 }
 </style>
-      

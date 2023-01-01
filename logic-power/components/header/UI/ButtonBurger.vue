@@ -51,9 +51,9 @@
 </template>
 
 <script setup>
-import { useHeaderlStore } from "~~/store/headerStore";
+import { useHeaderStore } from '~~/store/headerStore';
 
-const header = useHeaderlStore();
+const header = useHeaderStore();
 const menuItems = header.getModalMenu;
 const activeCatalog = header.activeCatalog;
 const activeMenu = header.activeModal;
@@ -63,7 +63,7 @@ const active = ref(false);
 function activeModal() {
   activeMenu(true);
   activeCatalog(false);
-  document.body.style.overflow = "hidden";
+  document.body.style.overflow = 'hidden';
 }
 </script>
 
@@ -99,4 +99,3 @@ function activeModal() {
   }
 }
 </style>
-    

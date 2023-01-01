@@ -5,7 +5,7 @@
       :class="{ disable: currentSlide <= 0 }"
       @click="prevSlide"
     >
-      <SvgIcon
+      <SvgIconLocal
         class="cooperation-slider__arrow-left-img"
         name="mainNavArrowLeftIcon.svg"
       />
@@ -28,7 +28,7 @@
           :key="index"
           ref="slideListItem"
         >
-          <SvgIcon class="cooperation-slider__img" :name="item.img" />
+          <SvgIconLocal class="cooperation-slider__img" :name="item.img" />
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
       :class="{ disable: slideMaxCount === currentSlide }"
       @click="nextSlide"
     >
-      <SvgIcon
+      <SvgIconLocal
         class="cooperation-slider__arrow-right-img"
         name="mainNavArrowRightIcon.svg"
       />
@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import SvgIcon from '~/components/SvgIconLocal.vue';
+import SvgIconLocal from '~/components/SvgIconLocal.vue';
 
 const sliderData = [
   {

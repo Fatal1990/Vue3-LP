@@ -292,7 +292,9 @@
               <ModalMenuItem class="modal-menu__item">
                 <template v-slot:title>
                   <span class="modal-menu__item-title">Отдел продаж:</span>
-                  <span class="modal-menu__item-title">+38 (067) 654-07-90</span>
+                  <span class="modal-menu__item-title"
+                    >+38 (067) 654-07-90</span
+                  >
                 </template>
                 <template v-slot:image>
                   <svg
@@ -892,10 +894,10 @@
 </template>
 
 <script setup>
-import ButtonLanguage from "../UI/ButtonLanguage.vue";
-import ModalMenuItem from "../UI/ModalMenuItem.vue";
-import CatalogItem from "../UI/CatalogItem.vue";
-import { useHeaderlStore } from "~~/store/headerStore";
+import ButtonLanguage from '../UI/ButtonLanguage.vue';
+import ModalMenuItem from '../UI/ModalMenuItem.vue';
+import CatalogItem from '../UI/CatalogItem.vue';
+import { useHeaderStore } from '~~/store/headerStore';
 
 const dropdownAboutCompany = ref(false);
 const dropdownServices = ref(false);
@@ -904,7 +906,7 @@ const currentIndex = ref(null);
 const currentIndexSubmenu = ref(null);
 const positionMenu = ref(0);
 
-const header = useHeaderlStore();
+const header = useHeaderStore();
 const menuItems = header.getModalMenu;
 const lang = header.getLanguage;
 const catalogValues = header.getModalCatalog;
@@ -916,7 +918,7 @@ const activeCatalog = header.activeCatalog;
 function closeModal() {
   header.activeModal(false);
   mobileCatalog.value = false;
-  document.body.style.overflow = "auto";
+  document.body.style.overflow = 'auto';
 }
 
 function openCatalog() {
@@ -957,7 +959,7 @@ function back() {
 }
 
 onMounted(() => {
-  window.addEventListener("resize", defaulModal);
+  window.addEventListener('resize', defaulModal);
 });
 </script>
 

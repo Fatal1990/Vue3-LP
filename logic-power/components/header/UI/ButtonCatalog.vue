@@ -45,9 +45,9 @@
 </template>
 
 <script setup>
-import { useHeaderlStore } from '~~/store/headerStore';
+import { useHeaderStore } from '~~/store/headerStore';
 
-const header = useHeaderlStore();
+const header = useHeaderStore();
 const modalCatalog = header.modalCatalog;
 const activeCatalog = header.activeCatalog;
 

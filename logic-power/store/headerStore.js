@@ -1,5 +1,5 @@
-export const useHeaderlStore = defineStore({
-  id: 'headerlStore',
+export const useHeaderStore = defineStore({
+  id: 'headerStore',
   state: () => {
     return {
       language: {

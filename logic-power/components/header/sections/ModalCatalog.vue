@@ -4,16 +4,16 @@
       <ul class="catalog__main-list" ref="content">
         <li
           class="catalog__main-item"
-          v-for="(item, index) in menuItems.menu"
-          :key="index"
+          v-for="(item, index) in categories"
+          :key="item.id"
           @mouseover="selectIndex(index)"
         >
           <div class="catalog__item-wrapper">
             <div class="catalog__image">
-              <!--<img :src="`/icons/${item.image}`" :alt="item.title" />-->
-              <SvgIcon :name="item.image" />
+              <!--<img :src="item.img" :alt="item.name.ru" />-->
+              <SvgIconRemote v-if="item.img" :url="item.img" />
             </div>
-            <span class="catalog__title">{{ item.title }}</span>
+            <span class="catalog__title">{{ item.name.ru }}</span>
           </div>
 
           <div class="catalog__image-arrow">
@@ -97,11 +97,16 @@
 </template>
 
 <script setup>
-import { useHeaderlStore } from '~~/store/headerStore';
+import { useHeaderStore } from '~~/store/headerStore';
+import SvgIconRemote from '~~/components/SvgIconRemote.vue';
 
-import SvgIcon from '~~/components/SvgIconLocal.vue';
+import { useCategoriesStore } from '~~/store/categoriesStore';
 
-const header = useHeaderlStore();
+const categoriesStore = useCategoriesStore();
+
+const categories = categoriesStore.getHeaderCategories;
+
+const header = useHeaderStore();
 const menuItems = header.getModalCatalog;
 const activeCatalog = header.activeCatalog;
 

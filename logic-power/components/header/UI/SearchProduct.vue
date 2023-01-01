@@ -113,11 +113,11 @@
 
 <script setup>
 import ButtonSearch from './ButtonSearch.vue';
-import { useHeaderlStore } from '~~/store/headerStore';
+import { useHeaderStore } from '~~/store/headerStore';
 
 defineProps(['value']);
 
-const header = useHeaderlStore();
+const header = useHeaderStore();
 const resultSearch = header.getResult;
 const category = resultSearch.categoryMenu;
 const resultItems = resultSearch.resultItems;
