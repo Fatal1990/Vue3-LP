@@ -1,9 +1,15 @@
 <template>
-  <span v-if="icon" v-html="icon" :class="attrs.class" />
+  <div v-if="icon" :class="attrs.class">
+    <svg
+      class="icon"
+      :style="{ height: props.height, width: props.width }"
+      v-html="icon"
+    ></svg>
+  </div>
 </template>
 
 <script setup>
-const { name } = defineProps(['name']);
+const props = defineProps(['name', 'height', 'width']);
 
 const icons = Object.fromEntries(
   Object.entries(import.meta.glob('~/assets/icons/*.svg', { as: 'raw' })).map(
@@ -16,7 +22,7 @@ const icons = Object.fromEntries(
 
 const attrs = useAttrs();
 
-const icon = name && (await icons?.[name]?.());
+const icon = props.name && (await icons?.[props.name]?.());
 </script>
 
 <style lang="scss"></style>

@@ -1,6 +1,6 @@
 <template>
   <div class="language">
-    <div
+    <!--<div
       class="language__wrapper-ua ua"
       :class="{ active: lang.active === true }"
       @click="changeLang($event.currentTarget)"
@@ -13,12 +13,16 @@
       @click="changeLang($event.currentTarget)"
     >
       <a @click.prevent href="#" class="language__ru">Рус</a>
-    </div>
+    </div>-->
+    <NuxtLink :to="switchLocalePath('ru')" class="language__ru">Рус</NuxtLink>
+    <NuxtLink :to="switchLocalePath('ua')" class="language__ua">Укр</NuxtLink>
   </div>
 </template>
 
 <script setup>
 import { useHeaderStore } from '~~/store/headerStore';
+
+const switchLocalePath = useSwitchLocalePath();
 
 const header = useHeaderStore();
 const lang = header.getLanguage;

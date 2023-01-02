@@ -1,17 +1,25 @@
 <template>
-  <span v-if="icon" :class="attrs.class" v-html="icon" />
+  <div v-if="icon" :class="attrs.class">
+    <svg
+      class="icon"
+      :style="{ height: props.height, width: props.width }"
+      v-html="icon"
+    ></svg>
+  </div>
 </template>
 
 <script setup>
-const { url } = defineProps(['url']);
+const props = defineProps(['url', 'width', 'height']);
+
+console.log(props.width);
 
 const attrs = useAttrs();
 
 let icon;
 
 try {
-  const response = await useFetch(`/api/remoteSvg?url=${url}`);
-  icon = url && response.data;
+  const response = await useFetch(`/api/remoteSvg?url=${props.url}`);
+  icon = props.url && response.data;
 } catch (e) {
   console.log(e);
 }

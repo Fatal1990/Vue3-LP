@@ -12,10 +12,12 @@ export default defineNuxtConfig({
         locales: [
           {
             code: 'ru',
+            name: 'Рус',
             iso: 'ru-RU',
           },
           {
-            code: 'uk',
+            code: 'ua',
+            name: 'Укр',
             iso: 'uk-UA',
           },
         ],

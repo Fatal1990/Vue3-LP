@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-defineProps(["language"]);
+defineProps(['language']);
 </script>
 
 <style lang="scss" scoped>
@@ -71,4 +71,3 @@ defineProps(["language"]);
   }
 }
 </style>
-  

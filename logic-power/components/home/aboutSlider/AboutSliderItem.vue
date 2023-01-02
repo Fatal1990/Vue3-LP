@@ -12,7 +12,7 @@
         }"
         ref="itemText"
       >
-        {{ aboutCard.text }}
+        {{ _T(aboutCard.text) }}
       </p>
       <div
         class="slider__list-item-btn"
@@ -22,46 +22,33 @@
         {{ isActive ? 'Свернуть' : 'Развернуть' }}
       </div>
     </div>
-    <!-- <slot name="title"></slot> -->
   </li>
 </template>
 
-<script lang="ts">
-import { AboutCard } from '@/models/view/about_slider';
-import { Component, Vue } from '~/tools/version-types';
-import { Prop } from 'vue-property-decorator';
+<script setup>
+const { aboutCard, isMobile } = defineProps(['aboutCard', 'isMobile']);
 
-@Component({
-  name: 'AboutSliderItemComponent',
-})
-export default class AboutSliderItemComponent extends Vue {
-  @Prop({ required: true }) aboutCard: AboutCard;
-  @Prop({ required: true }) isMobile: boolean;
+const itemText = ref(null);
 
-  declare $refs: {
-    itemText: HTMLElement;
-  };
+let isTextBiggerThanWrapper = false;
+let isActive = false;
 
-  isTextBiggerThanWrapper: boolean = false;
-  isActive: boolean = false;
+const calcItemTextHeight = () => {
+  isTextBiggerThanWrapper = itemText.value.scrollHeight > 180;
+};
 
-  calcItemTextHeight() {
-    this.isTextBiggerThanWrapper = this.$refs.itemText.scrollHeight > 180;
-  }
-
-  onResize() {
-    this.calcItemTextHeight();
-  }
-
-  mounted() {
-    this.onResize();
-    window.addEventListener('resize', this.onResize);
-  }
-
-  unmounted() {
-    window.removeEventListener('resize', this.onResize);
-  }
+function onResize() {
+  calcItemTextHeight();
 }
+
+onMounted(() => {
+  onResize();
+  window.addEventListener('resize', onResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -154,7 +141,7 @@ export default class AboutSliderItemComponent extends Vue {
     width: 100%;
     max-width: 756px;
 
-    @extend %flex-column;
+    /*@extend %flex-column;*/
     gap: 56px;
 
     @include smallScreen {
@@ -169,30 +156,30 @@ export default class AboutSliderItemComponent extends Vue {
   }
 
   &__list-item-info-title {
-    @include fontUnify(30, 40, 600);
-    color: $color-main;
+    /*@include fontUnify(30, 40, 600);
+    color: $color-main;*/
 
     @include smallScreen {
-      @include fontUnify(24, 32, 600);
+      /*@include fontUnify(24, 32, 600);*/
     }
 
     @include bigMobile {
-      @include fontUnify(20, 30, 600);
+      /*@include fontUnify(20, 30, 600);*/
     }
   }
 
   &__list-item-info-text {
-    @include fontUnify(20, 28);
+    /*@include fontUnify(20, 28);*/
     letter-spacing: 0.02em;
 
     transition: 0.2s ease;
 
     @include smallScreen {
-      @include fontUnify(18, 24);
+      /*@include fontUnify(18, 24);*/
     }
 
     @include bigMobile {
-      @include fontUnify;
+      /*@include fontUnify;*/
 
       @include lineClamp(8);
 
@@ -206,10 +193,10 @@ export default class AboutSliderItemComponent extends Vue {
   }
 
   &__list-item-btn {
-    @include fontUnify;
+    /*@include fontUnify;*/
     letter-spacing: 0.02em;
     text-align: left;
-    color: $color-main;
+    /*color: $color-main;*/
 
     cursor: none;
   }

@@ -7,7 +7,7 @@
     >
       <SvgIconLocal
         class="cooperation-slider__arrow-left-img"
-        name="mainNavArrowLeftIcon.svg"
+        name="mainNavArrowLeftIcon"
       />
     </div>
     <div class="cooperation-slider__w" ref="slideWrap">
@@ -39,7 +39,7 @@
     >
       <SvgIconLocal
         class="cooperation-slider__arrow-right-img"
-        name="mainNavArrowRightIcon.svg"
+        name="mainNavArrowRightIcon"
       />
     </div>
   </div>

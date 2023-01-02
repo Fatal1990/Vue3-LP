@@ -11,7 +11,12 @@
           <div class="catalog__item-wrapper">
             <div class="catalog__image">
               <!--<img :src="item.img" :alt="item.name.ru" />-->
-              <SvgIconRemote v-if="item.img" :url="item.img" />
+              <SvgIconRemote
+                v-if="item.img"
+                :url="item.img"
+                width="28px"
+                height="28px"
+              />
             </div>
             <span class="catalog__title">{{ item.name.ru }}</span>
           </div>

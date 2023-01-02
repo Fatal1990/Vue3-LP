@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <!-- <AboutUsSliderComponent></AboutUsSliderComponent> -->
+    <AboutUsSliderComponent></AboutUsSliderComponent>
     <div class="main-page__team-block">
       <div class="main-page__team-w">
         <p class="main-page__team-text">
@@ -152,8 +152,8 @@
 <script setup>
 import SliderCategoryComponent from './SliderCategory.vue';
 import CooperationSliderComponent from './CooperationSlider.vue';
-/*import AboutUsSliderComponent from './about_slider/AboutUsSlider.vue';
-import MainSlider from './main_slider/MainSlider.vue';*/
+import AboutUsSliderComponent from './aboutSlider/AboutUsSlider.vue';
+/*import MainSlider from './mainSlider/MainSlider.vue';*/
 </script>
 
 <style lang="scss">
