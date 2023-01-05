@@ -1,23 +1,26 @@
 <template>
-  <div class="menu-item">
+  <a href="#" class="menu-item">
     <div class="menu-item__image">
       <slot name="image"></slot>
     </div>
     <div class="menu-item__titles">
       <slot name="title"></slot>
     </div>
-  </div>
+  </a>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
 <style lang="scss">
 .menu-item {
   @include flex-container(row, flex-start, center);
 
   gap: 32px;
-  padding: 8px 8px 8px 0;
+  padding-block: 8px;
+
+  &:hover .menu-item__titles > span {
+    color: var(--color-primary-base);
+  }
 
   &__image {
     font-size: 0;

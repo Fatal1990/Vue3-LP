@@ -2,6 +2,16 @@
   <section class="catalog" :class="{ active: menuItems.active }" ref="modal">
     <div class="catalog__wrapper">
       <ul class="catalog__main-list" ref="content">
+        <li class="catalog__main-item">
+          <NuxtLink to="catalog">
+            <div class="catalog__item-wrapper">
+              <div class="catalog__image">
+                <SvgIconLocal name="grid-add" width="28px" height="28px" />
+              </div>
+              <span class="catalog__category-title">Каталог категорий</span>
+            </div>
+          </NuxtLink>
+        </li>
         <li
           class="catalog__main-item"
           v-for="(item, index) in categories"
@@ -102,10 +112,10 @@
 </template>
 
 <script setup>
-import { useHeaderStore } from '~~/store/headerStore';
-import SvgIconRemote from '~~/components/SvgIconRemote.vue';
-
-import { useCategoriesStore } from '~~/store/categoriesStore';
+import { useHeaderStore } from "~~/store/headerStore";
+import SvgIconRemote from "~~/components/SvgIconRemote.vue";
+import SvgIconLocal from "~~/components/SvgIconLocal.vue";
+import { useCategoriesStore } from "~~/store/categoriesStore";
 
 const categoriesStore = useCategoriesStore();
 
@@ -128,7 +138,7 @@ const props = defineProps({
   nullState: { type: Boolean, required: false },
 });
 
-const emits = defineEmits(['catalogModal', 'heightContent']);
+const emits = defineEmits(["catalogModal", "heightContent"]);
 
 watch(nullState, (currentState) => {
   if (currentState) {
@@ -157,14 +167,14 @@ function resizeCatalog() {
 }
 
 function sendEmits() {
-  emits('catalogModal', modal.value);
-  emits('heightContent', content.value.scrollHeight);
+  emits("catalogModal", modal.value);
+  emits("heightContent", content.value.scrollHeight);
 }
 
 onMounted(() => {
   sendEmits();
 
-  window.addEventListener('resize', resizeCatalog);
+  window.addEventListener("resize", resizeCatalog);
 });
 </script>
 
@@ -244,6 +254,15 @@ onMounted(() => {
 
   &__image-arrow {
     font-size: 0;
+  }
+
+  &__category-title {
+    max-width: 270px;
+    width: 100%;
+
+    @include font(14, 22, 400);
+    color: var(--color-primary-base);
+    letter-spacing: 0.02em;
   }
 
   &__title {
