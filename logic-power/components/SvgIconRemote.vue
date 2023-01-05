@@ -11,8 +11,6 @@
 <script setup>
 const props = defineProps(['url', 'width', 'height']);
 
-console.log(props.width);
-
 const attrs = useAttrs();
 
 let icon;

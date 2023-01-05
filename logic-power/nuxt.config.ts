@@ -1,33 +1,18 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+import routes from './routes';
+
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
+const route = routes(dirname);
+
 export default defineNuxtConfig({
   modules: [
     [
       '@pinia/nuxt',
       {
         autoImports: ['defineStore'],
-      },
-    ],
-    [
-      '@nuxtjs/i18n',
-      {
-        locales: [
-          {
-            code: 'ru',
-            name: 'Рус',
-            iso: 'ru-RU',
-          },
-          {
-            code: 'ua',
-            name: 'Укр',
-            iso: 'uk-UA',
-          },
-        ],
-        baseUrl: 'https://logicpower.ua',
-        defaultLocale: 'ru',
-        detectBrowserLanguage: false,
-        strategy: 'prefix_except_default',
-        vueI18n: {
-          legacy: false,
-        },
       },
     ],
   ],
@@ -38,6 +23,11 @@ export default defineNuxtConfig({
           additionalData: '@use "@/assets/scss/index.scss" as *;',
         },
       },
+    },
+  },
+  hooks: {
+    'pages:extend'(pages) {
+      pages.push(...route);
     },
   },
 });
