@@ -1,11 +1,4 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-import routes from './routes';
-
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
-
-const route = routes(dirname);
+import route from './routes';
 
 export default defineNuxtConfig({
   modules: [
@@ -28,6 +21,14 @@ export default defineNuxtConfig({
   hooks: {
     'pages:extend'(pages) {
       pages.push(...route);
+    },
+  },
+  runtimeConfig: {
+    // The private keys which are only available within server-side
+    // apiSecret: '123',
+    // Keys within public, will be also exposed to the client-side
+    public: {
+      apiRoot: 'https://dev.api.logicpower.ua/user',
     },
   },
 });

@@ -62,7 +62,7 @@
 
 <script setup>
 import { useCategoriesStore } from '~~/store/categoriesStore';
-import Catalog from '../components/catalog/Catalog.vue';
+import Catalog from '~/modules/catalog/components/Catalog.vue';
 
 const catalogStore = useCategoriesStore();
 const categories = catalogStore.getCategories;

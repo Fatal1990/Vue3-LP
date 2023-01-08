@@ -18,6 +18,7 @@ export const useCategoriesStore = defineStore({
       this.categories = data.data;
       this.flattenCategories = categoryFlatten(data.data);
       this.headerCategories = categoryHeader(data.data);
+      console.log(this.headerCategories);
     },
   },
   getters: {

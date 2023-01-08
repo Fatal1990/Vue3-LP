@@ -30,11 +30,11 @@
 
 <script setup>
 import { useHeaderStore } from '~~/store/headerStore';
-import ButtonBurger from '../UI/ButtonBurger.vue';
-import ButtonCatalog from '../UI/ButtonCatalog.vue';
-import Logo from '../UI/Logo.vue';
-import SearchProduct from '../UI/SearchProduct.vue';
-import ChangeLanguage from '../UI/ChangeLanguage.vue';
+import ButtonBurger from '../components/UI/ButtonBurger.vue';
+import ButtonCatalog from '../components/UI/ButtonCatalog.vue';
+import Logo from '../components/UI/Logo.vue';
+import SearchProduct from '../components/UI/SearchProduct.vue';
+import ChangeLanguage from '../components/UI/ChangeLanguage.vue';
 import NavigationMenu from './NavigationMenu.vue';
 import ModalCatalog from './ModalCatalog.vue';
 

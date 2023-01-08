@@ -11,7 +11,7 @@ export const useI18nStore = defineStore({
     async fetch() {
       try {
         const { data } = await axios.get(
-          'https://api.b2b.logicpower.ua/user/shared/export/translations',
+          'https://dev.api.logicpower.ua/user/shared/export/translations',
         );
 
         const result = { ru: {}, uk: {} };

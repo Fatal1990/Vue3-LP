@@ -894,10 +894,10 @@
 </template>
 
 <script setup>
-import ButtonLanguage from "../UI/ButtonLanguage.vue";
-import ModalMenuItem from "../UI/ModalMenuItem.vue";
-import CatalogItem from "../UI/CatalogItem.vue";
-import { useHeaderStore } from "~~/store/headerStore";
+import ButtonLanguage from '../components/UI/ButtonLanguage.vue';
+import ModalMenuItem from '../components/UI/ModalMenuItem.vue';
+import CatalogItem from '../components/UI/CatalogItem.vue';
+import { useHeaderStore } from '~~/store/headerStore';
 
 const dropdownAboutCompany = ref(false);
 const dropdownServices = ref(false);
@@ -918,7 +918,7 @@ const activeCatalog = header.activeCatalog;
 function closeModal() {
   header.activeModal(false);
   mobileCatalog.value = false;
-  document.body.style.overflow = "auto";
+  document.body.style.overflow = 'auto';
 }
 
 function openCatalog() {
@@ -959,7 +959,7 @@ function back() {
 }
 
 onMounted(() => {
-  window.addEventListener("resize", defaulModal);
+  window.addEventListener('resize', defaulModal);
 });
 </script>
 

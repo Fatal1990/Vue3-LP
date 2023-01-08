@@ -10,8 +10,8 @@
 
 <script setup>
 import { useLanguageFilterStore } from '~~/store/languageFilterStore';
-import Header from '~~/components/header/Header.vue';
-import Footer from '~~/components/footer/Footer.vue';
+import Header from '~/modules/header/components/Header.vue';
+import Footer from '~/modules/footer/components/Footer.vue';
 
 const lang = useLanguageFilterStore();
 

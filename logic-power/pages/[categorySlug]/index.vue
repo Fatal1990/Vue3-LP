@@ -20,8 +20,8 @@
 
 <script setup>
 import { useCategoriesStore } from '~~/store/categoriesStore';
-import CardProduct from '~~/components/catalog/sections/cardProduct/CardProduct.vue';
-import Catalog from '~~/components/catalog/Catalog.vue';
+import CardProduct from '~/modules/catalog/components/sections/cardProduct/CardProduct.vue';
+import Catalog from '~/modules/catalog/components/Catalog.vue';
 
 const { urlLang, categorySlug } = useRoute().params;
 

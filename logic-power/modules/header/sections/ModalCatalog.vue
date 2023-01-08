@@ -20,7 +20,6 @@
         >
           <div class="catalog__item-wrapper">
             <div class="catalog__image">
-              <!--<img :src="item.img" :alt="item.name.ru" />-->
               <SvgIconRemote
                 v-if="item.img"
                 :url="item.img"
@@ -28,7 +27,7 @@
                 height="28px"
               />
             </div>
-            <span class="catalog__title">{{ item.name.ru }}</span>
+            <span class="catalog__title">{{ item.name[lang] }}</span>
           </div>
 
           <div class="catalog__image-arrow">
@@ -50,7 +49,7 @@
           </div>
         </li>
       </ul>
-      <section class="catalog__submenu" :class="{ active: counterMenu >= 1 }">
+      <!--<section class="catalog__submenu" :class="{ active: counterMenu >= 1 }">
         <div
           class="catalog__submenu-item"
           :class="{ active: index === currentIndex }"
@@ -106,16 +105,19 @@
             </li>
           </ul>
         </div>
-      </section>
+      </section>-->
     </div>
   </section>
 </template>
 
 <script setup>
-import { useHeaderStore } from "~~/store/headerStore";
-import SvgIconRemote from "~~/components/SvgIconRemote.vue";
-import SvgIconLocal from "~~/components/SvgIconLocal.vue";
-import { useCategoriesStore } from "~~/store/categoriesStore";
+import { useHeaderStore } from '~~/store/headerStore';
+import SvgIconRemote from '~/modules/shared/SvgIconRemote.vue';
+import SvgIconLocal from '~/modules/shared/SvgIconLocal.vue';
+import { useCategoriesStore } from '~~/store/categoriesStore';
+const { urlLang } = useRoute().params;
+
+const lang = urlLang ? urlLang : 'ru';
 
 const categoriesStore = useCategoriesStore();
 
@@ -138,7 +140,7 @@ const props = defineProps({
   nullState: { type: Boolean, required: false },
 });
 
-const emits = defineEmits(["catalogModal", "heightContent"]);
+const emits = defineEmits(['catalogModal', 'heightContent']);
 
 watch(nullState, (currentState) => {
   if (currentState) {
@@ -167,14 +169,14 @@ function resizeCatalog() {
 }
 
 function sendEmits() {
-  emits("catalogModal", modal.value);
-  emits("heightContent", content.value.scrollHeight);
+  emits('catalogModal', modal.value);
+  emits('heightContent', content.value.scrollHeight);
 }
 
 onMounted(() => {
   sendEmits();
 
-  window.addEventListener("resize", resizeCatalog);
+  window.addEventListener('resize', resizeCatalog);
 });
 </script>
 

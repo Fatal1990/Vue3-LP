@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import SvgIconLocal from '~/components/SvgIconLocal.vue';
+import SvgIconLocal from '~/modules/shared/SvgIconLocal.vue';
 
 const sliderData = [
   {
