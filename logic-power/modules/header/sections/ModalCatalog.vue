@@ -12,7 +12,8 @@
             </div>
           </NuxtLink>
         </li>
-        <li
+        <ModalCatalogItem :categories="categories" />
+        <!--<li
           class="catalog__main-item"
           v-for="(item, index) in categories"
           :key="item.id"
@@ -47,7 +48,7 @@
               />
             </svg>
           </div>
-        </li>
+        </li>-->
       </ul>
       <!--<section class="catalog__submenu" :class="{ active: counterMenu >= 1 }">
         <div
@@ -112,17 +113,19 @@
 
 <script setup>
 import { useHeaderStore } from '~~/store/headerStore';
-import SvgIconRemote from '~/modules/shared/SvgIconRemote.vue';
+//import SvgIconRemote from '~/modules/shared/SvgIconRemote.vue';
 import SvgIconLocal from '~/modules/shared/SvgIconLocal.vue';
 import { useCategoriesStore } from '~~/store/categoriesStore';
-const { urlLang } = useRoute().params;
+import ModalCatalogItem from './ModalCatalogItem.vue';
 
-const lang = urlLang ? urlLang : 'ru';
+//const { urlLang } = useRoute().params;
+
+//const lang = urlLang ? urlLang : 'ru';
 
 const categoriesStore = useCategoriesStore();
 
 const categories = categoriesStore.getHeaderCategories;
-
+console.log(categories);
 const header = useHeaderStore();
 const menuItems = header.getModalCatalog;
 const activeCatalog = header.activeCatalog;

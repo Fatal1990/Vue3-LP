@@ -13,7 +13,9 @@ export const categoryHeader = (categories) => {
 
     const menuItem = { id: item.id, name: item.name, img: image?.url };
 
-    if (item.children?.length) result.children = categoryHeader(item.children);
+    if (item.children?.length) {
+      menuItem.children = categoryHeader(item.children);
+    }
 
     result.push(menuItem);
   });
