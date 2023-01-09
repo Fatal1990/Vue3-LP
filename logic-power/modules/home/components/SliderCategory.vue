@@ -3,7 +3,7 @@
     <div v-if="!isMobile" class="category-slider">
       <div class="category-slider__prod">
         <div class="category-slider__prod-title-w">
-          <h3 class="category-slider__prod-title">{{ _T('@Products') }}</h3>
+          <h3 class="category-slider__prod-title">{{ _T('Продукция') }}</h3>
           <div class="category-slider__prod-line"></div>
         </div>
         <div class="category-slider__prod-list-w">
@@ -38,7 +38,7 @@
       <div class="category-slider__category">
         <div
           class="category-slider__category-w"
-          :style="{ '--translate-y': TranslateY + '%' }"
+          :style="{ '--translate-y': TranslateY() + '%' }"
         >
           <div
             class="category-slider__category-item-w"
@@ -56,7 +56,7 @@
               <a
                 :href="`${slide.link}`"
                 class="category-slider__category-link"
-                >{{ _T('@Go to section') }}</a
+                >{{ _T('Перейти в раздел') }}</a
               >
             </div>
           </div>
@@ -64,8 +64,11 @@
       </div>
     </div>
     <div v-if="isMobile" class="category-list">
-      <h3 class="category-list__title">{{ _T('@Products') }}</h3>
-      <div class="category-list__container">
+      <h3 class="category-list__title">{{ _T('Продукция') }}</h3>
+      <div 
+        class="category-list__container"
+        :class="{show: showAll}"
+      >
         <a
           class="category-list__item"
           v-for="(item, index) in sliderData"
@@ -81,7 +84,7 @@
           <h4 class="category-list__item-title">{{ item.title }}</h4>
         </a>
       </div>
-      <a class="category-list__link" href="#">
+      <a class="category-list__link" href="#" @click.prevent="showAll = !showAll">
         <svg
           class="category-list__link-img"
           width="24"
@@ -105,9 +108,12 @@
             stroke-linejoin="round"
           />
         </svg>
-        <span class="category-list__link-text">{{
-          _T('@All categories')
-        }}</span>
+        <span v-if="!showAll" class="category-list__link-text">
+          {{_T('Все категории')}}
+        </span>
+        <span v-else class="category-list__link-text">
+          {{_T('Скрыть')}}
+        </span>
       </a>
     </div>
   </div>
@@ -194,60 +200,61 @@ const sliderData = [
   },
 ];
 
-let currentSlide = 0;
-let linksTranslateY = 0;
-let isMobile = false;
+const currentSlide = ref(0);
+const linksTranslateY = ref(0);
+const isMobile = ref(false);
+const showAll = ref(false);
 
 const slideCount = sliderData.length;
 
-const step = () => 100 / slideCount;
+function step() {
+ return 100 / slideCount;
+};
 
-const TranslateY = () => currentSlide * -step();
+function TranslateY() {
+ return currentSlide.value * -step();
+}
 
-const calcHeight = () => {
+function calcHeight() {
   const leftWrapRect = leftWrapper.value.getBoundingClientRect();
   const linkListRect = linkListEl.value.getBoundingClientRect();
-  const activeLinkRect = linkItems.value[currentSlide].getBoundingClientRect();
+  const activeLinkRect = linkItems.value[currentSlide.value].getBoundingClientRect();
+  const linkBottomFromWrapperCenter = leftWrapRect.height / 2 - (activeLinkRect.bottom - leftWrapRect.top);
 
-  const linkBottomFromWrapperCenter =
-    leftWrapRect.height / 2 - (activeLinkRect.bottom - leftWrapRect.top);
-
-  if (linksTranslateY + linkBottomFromWrapperCenter > 0) {
-    linksTranslateY = 0;
+  if (linksTranslateY.value + linkBottomFromWrapperCenter > 0) {
+    linksTranslateY.value = 0;
   } else if (
-    linksTranslateY + linkBottomFromWrapperCenter <
+    linksTranslateY.value + linkBottomFromWrapperCenter <
     leftWrapRect.height - linkListRect.height
   ) {
-    linksTranslateY = leftWrapRect.height - linkListRect.height;
+    linksTranslateY.value = leftWrapRect.height - linkListRect.height;
   } else {
-    linksTranslateY += linkBottomFromWrapperCenter;
+    linksTranslateY.value += linkBottomFromWrapperCenter;
   }
 };
 
-const prevSlide = () => {
-  if (currentSlide - 1 < 0) currentSlide = slideCount() - 1;
-  else currentSlide -= 1;
+function prevSlide() {
+  if (currentSlide.value - 1 < 0) currentSlide.value = slideCount - 1;
+  else currentSlide.value = currentSlide.value - 1;
 
   calcHeight();
 };
 
-const nextSlide = () => {
-  if (currentSlide + 1 >= slideCount) currentSlide = 0;
-  else currentSlide += 1;
+function nextSlide() {
+  if (currentSlide.value + 1 >= slideCount) currentSlide.value = 0;
+  else currentSlide.value = currentSlide.value + 1;
 
-  this.calcHeight();
-};
-
-const goToSlide = (index) => {
-  currentSlide = index;
   calcHeight();
 };
 
-const calcIsMobile = () => {
-  const mobWidth = getComputedStyle(selector.value).getPropertyValue(
-    '--mobile-width',
-  );
-  isMobile = window.innerWidth <= parseInt(mobWidth);
+function goToSlide(index) {
+  currentSlide.value = index;
+  calcHeight();
+};
+
+function calcIsMobile() {
+  const mobWidth = getComputedStyle(selector.value).getPropertyValue('--mobile-width');
+  isMobile.value = window.innerWidth <= parseInt(mobWidth);
 };
 
 function onResize() {
@@ -267,8 +274,8 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .category-slider-selector {
   width: 100%;
-  /*@extend %flex-column;*/
-  align-items: center;
+  
+  @include flex-container(column, center, center);
 
   --mobile-width: #{$mobile-big-width};
 }
@@ -285,7 +292,7 @@ onUnmounted(() => {
     max-width: 415px;
     width: 100%;
 
-    /*@extend %flex-column;*/
+    @include flex-container(column, center);
     flex-shrink: 2;
     flex-grow: 1;
 
@@ -294,11 +301,8 @@ onUnmounted(() => {
     background-color: #393d38;
   }
 
-  &__prod-title-w {
-  }
-
   &__prod-title {
-    /*@include fontUnify(20, 30, 600);*/
+    @include font(20, 30, 600);
     text-align: center;
     text-transform: uppercase;
 
@@ -314,7 +318,7 @@ onUnmounted(() => {
 
   &__prod-list-w {
     position: relative;
-    height: 100%;
+/*     height: 100%; */
 
     padding: 80px 0;
   }
@@ -323,9 +327,7 @@ onUnmounted(() => {
     position: absolute;
     @include setAbs;
 
-    /*@extend %flex-column;*/
-    justify-content: space-between;
-    align-items: center;
+    @include flex-container(column, space-between, center);
 
     padding-top: 16px;
     z-index: 3;
@@ -346,10 +348,6 @@ onUnmounted(() => {
 
     cursor: pointer;
 
-    &:hover span {
-      /*border-color: $color-main-dark;*/
-    }
-
     & span {
       width: 10px;
       height: 10px;
@@ -358,10 +356,6 @@ onUnmounted(() => {
       border-left: 1px solid black;
 
       transform: rotateZ(45deg) translate(2px, 2px);
-
-      &:hover {
-        /*color: $color-main-dark;*/
-      }
     }
   }
 
@@ -379,10 +373,6 @@ onUnmounted(() => {
     transition: 0.2s ease-in-out;
 
     cursor: pointer;
-
-    &:hover span {
-      /*border-color: $color-main-dark;*/
-    }
 
     & span {
       width: 10px;
@@ -407,7 +397,7 @@ onUnmounted(() => {
 
     position: relative;
 
-    /*@extend %flex-column;*/
+    @include flex-container(column, center, flex-start);
     gap: 16px;
 
     transition: 0.3s ease-in-out;
@@ -417,13 +407,13 @@ onUnmounted(() => {
   }
 
   &__prod-item {
-    /*@include fontUnify(20, 28);*/
+    @include font(20, 28);
     letter-spacing: 0.02em;
 
     cursor: pointer;
 
     &.prod-item-active {
-      /*color: $color-main;*/
+      color: #F36C21;
     }
   }
 
@@ -431,9 +421,7 @@ onUnmounted(() => {
     width: 100%;
     height: 540px;
 
-    /*@extend %flex-column;*/
-    justify-content: flex-start;
-    align-items: center;
+    @include flex-container(column, flex-start, center);
     flex-shrink: 1;
     flex-grow: 2;
 
@@ -465,21 +453,23 @@ onUnmounted(() => {
     width: 100%;
     max-width: 920px;
 
-    /*@extend %flex-column;*/
+    @include flex-container(column, center, flex-start);
     gap: 16px;
   }
 
   &__category-title {
     width: 100%;
 
-    /*@include fontUnify(20, 30, 600);*/
+    @include font(20, 30, 600);
     letter-spacing: 0.02em;
+    color: #2B2B2B;
     text-align: start;
     text-transform: uppercase;
   }
 
   &__category-description {
-    /*@include fontUnify;*/
+    @include font(16, 22, 400);
+    color: #2B2B2B;
     letter-spacing: 0.02em;
 
     @include lineClamp(3);
@@ -493,20 +483,24 @@ onUnmounted(() => {
 
     @include flex-container(row, center, center);
 
-    /*@include fontUnify(20, 30, 600);*/
+    @include font(20, 30, 600);
     text-transform: uppercase;
-    color: #ffffff;
+    color: white;
 
-    border-radius: 6px;
-    /*background-color: $color-main;*/
+    border-radius: 8px;
+    background-color: #F36C21;
 
     padding: 8px 0;
-    transition: 0.2s ease-in-out;
+    transition: 0.1s ease-in-out;
 
     cursor: pointer;
 
     &:hover {
-      /*background-color: $color-main-dark;*/
+      background-color: #FF5B00;
+    }
+
+    &:active {
+      background-color: #AC450B;
     }
   }
 }
@@ -514,14 +508,18 @@ onUnmounted(() => {
 .category-list {
   --gap: 16px;
 
-  /*@extend %flex-column;*/
-  align-items: center;
+  @include flex-container(column, center, center);
+
   gap: calc(var(--gap) * 2);
 
   &__title {
-    /*@include fontUnify(22, 26, 600);*/
+    @include font(22, 26, 600);
     text-align: center;
     text-transform: uppercase;
+
+    @include bigMobile {
+      text-transform: none;
+    }
   }
 
   &__link {
@@ -541,11 +539,11 @@ onUnmounted(() => {
 
     transition: 0.2s ease-in-out;
     &:hover {
-      /*color: $color-main;
-      fill: $color-main;*/
+      color: #F36C21;
+      fill: #F36C21;
     }
     &:hover path {
-      /*stroke: $color-main;*/
+      stroke: #F36C21;
       transition: 0.2s ease-in-out;
     }
   }
@@ -555,7 +553,7 @@ onUnmounted(() => {
   }
 
   &__link-text {
-    /*@include fontUnify(20, 28);*/
+    @include font(20, 28);
     letter-spacing: 0.02em;
     text-align: center;
   }
@@ -564,11 +562,18 @@ onUnmounted(() => {
     @include flex-container(row, center);
     flex-wrap: wrap;
     gap: var(--gap);
+
+    @include bigMobile {
+      &.show {
+        .category-list__item {
+          display: flex;
+        }
+      }
+    }
   }
 
   &__item {
-    /*@extend %flex-column;*/
-    align-items: center;
+    @include flex-container(column, center, center);
     gap: calc(var(--gap) * 2);
 
     @include set-item-count-in-row(2);
@@ -579,8 +584,17 @@ onUnmounted(() => {
 
     padding: 8px;
     transition: 0.2s ease-in-out;
+
+    @include bigMobile {
+      display: none;
+
+      &:nth-child(-n + 6) {
+        display: flex;
+      }
+    }
+
     &:hover {
-      /*color: $color-main;*/
+      color: #F36C21;
     }
   }
 
@@ -592,17 +606,19 @@ onUnmounted(() => {
   }
 
   &__item-img {
-    /*@include absoluteGrow();*/
-
     width: 100%;
     height: 100%;
+
+    position: absolute;
+    @include setAbs();
 
     object-fit: cover;
     pointer-events: none;
   }
 
   &__item-title {
-    /*@include fontUnify(16, 20, 700);*/
+    @include font(16, 19, 500);
+    color: #2B2B2B;
     text-align: center;
     text-transform: uppercase;
 

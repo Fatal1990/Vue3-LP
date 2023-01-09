@@ -5,10 +5,7 @@
       :class="{ disable: currentSlide <= 0 }"
       @click="prevSlide"
     >
-      <SvgIconLocal
-        class="cooperation-slider__arrow-left-img"
-        name="mainNavArrowLeftIcon"
-      />
+    <SliderButton :directionRight="false" />
     </div>
     <div class="cooperation-slider__w" ref="slideWrap">
       <div
@@ -22,14 +19,15 @@
           '--gap': gapLength + 'px',
         }"
       >
-        <div
+        <a 
+          href="#"
           class="cooperation-slider__item"
           v-for="(item, index) in sliderData"
           :key="index"
           ref="slideListItem"
         >
-          <SvgIconLocal class="cooperation-slider__img" :name="item.img" />
-        </div>
+          <img :src="`/img/${item.img}.svg`" :alt="item.img" class="cooperation-slider__img">
+        </a>
       </div>
     </div>
     <div
@@ -37,16 +35,13 @@
       :class="{ disable: slideMaxCount === currentSlide }"
       @click="nextSlide"
     >
-      <SvgIconLocal
-        class="cooperation-slider__arrow-right-img"
-        name="mainNavArrowRightIcon"
-      />
+    <SliderButton :directionRight="true" />
     </div>
   </div>
 </template>
 
 <script setup>
-import SvgIconLocal from '~/modules/shared/SvgIconLocal.vue';
+import SliderButton from '~/modules/home/components/UI/SliderButton.vue';
 
 const sliderData = [
   {
@@ -75,7 +70,7 @@ const sliderData = [
   },
   {
     id: 7,
-    img: 'mainCooperationRozetkaIcon',
+    img: 'mainCooperationPromIcon',
   },
   {
     id: 8,
@@ -83,7 +78,7 @@ const sliderData = [
   },
   {
     id: 9,
-    img: 'mainCooperationRozetkaIcon',
+    img: 'mainCooperationSilpoIcon',
   },
 ];
 
@@ -91,96 +86,84 @@ const slideWrap = ref(null);
 const slideListItem = ref(null);
 const slideList = ref(null);
 
-let currentSlide = 0;
-let gapLength = 0;
-let translateListX = 0;
-let slideMaxCount = 0;
-let startX = 0;
-let endX = 0;
+const currentSlide = ref(0);
+const gapLength = ref(0);
+const translateListX = ref(0);
+const slideMaxCount = ref(0);
+const startX = ref(0);
+const endX = ref(0);
 
 const slideCount = sliderData.length;
 
 const step = () => 100 / slideCount;
 
-const translateX = () => {
-  const slideItemRect =
-    slideListItem.value[currentSlide].getBoundingClientRect();
+function translateX() {
+  const slideItemRect = slideListItem.value[currentSlide.value].getBoundingClientRect();
 
-  return -slideItemRect.width * currentSlide - gapLength * currentSlide;
+  return -slideItemRect.width * currentSlide.value - gapLength.value * currentSlide.value;
 };
 
-const calcItemsLength = () => {
+function calcItemsLength() {
   const slideWrapRect = slideWrap.value.getBoundingClientRect();
-  const slideItemRect =
-    slideListItem.value[currentSlide].getBoundingClientRect();
+  const slideItemRect = slideListItem.value[currentSlide.value].getBoundingClientRect();
 
   let slideItemsCount = Math.floor(slideWrapRect.width / slideItemRect.width);
 
   if (slideItemsCount >= slideCount) slideItemsCount = slideCount;
 
-  gapLength =
-    (slideWrapRect.width - slideItemsCount * slideItemRect.width) /
-    (slideItemsCount - 1);
+  gapLength.value = (slideWrapRect.width - slideItemsCount * slideItemRect.width) / (slideItemsCount - 1);
 
-  const slideMaxWidth =
-    (slideCount - slideItemsCount) * slideItemRect.width +
-    gapLength * (slideCount - slideItemsCount);
+  const slideMaxWidth = (slideCount - slideItemsCount) * slideItemRect.width + gapLength.value * (slideCount - slideItemsCount);
 
-  slideMaxCount = slideCount - slideItemsCount;
+  slideMaxCount.value = slideCount - slideItemsCount;
 
   if (-slideMaxWidth >= translateX()) {
-    translateListX = -slideMaxWidth;
-    currentSlide = slideMaxCount;
-  } else
-    translateListX =
-      -slideItemRect.width * currentSlide - gapLength * currentSlide;
+    translateListX.value = -slideMaxWidth;
+    currentSlide.value = slideMaxCount.value;
+  } else translateListX.value = -slideItemRect.width * currentSlide.value - gapLength.value * currentSlide.value;
 };
 
-const nextSlide = () => {
-  if (currentSlide + 1 >= slideCount) currentSlide = slideCount;
-  else currentSlide += 1;
+function nextSlide() {
+  if (currentSlide.value + 1 >= slideCount) currentSlide.value = slideCount;
+  else currentSlide.value += 1;
 
   calcItemsLength();
 };
 
-const prevSlide = () => {
-  if (currentSlide - 1 < 0) currentSlide = 0;
-  else currentSlide -= 1;
+function prevSlide() {
+  if (currentSlide.value - 1 < 0) currentSlide.value = 0;
+  else currentSlide.value -= 1;
 
   calcItemsLength();
 };
 
-function handleTouchStart(e) {
-  startX = e.touches[0].clientX;
-  endX = 0;
+ function handleTouchStart(e) {
+  startX.value = e.touches[0].clientX;
+  endX.value = 0;
 }
 
 function handleTouchMove(e) {
-  endX = e.touches[0].clientX;
+  endX.value = e.touches[0].clientX;
 }
 
 function handleTouchEnd() {
-  const slideItemRect =
-    slideListItem.value[currentSlide].getBoundingClientRect();
+  const slideItemRect = slideListItem.value[currentSlide.value].getBoundingClientRect();
   const slideWrapRect = slideWrap.value.getBoundingClientRect();
 
   const mobMaxWidth = slideCount * slideItemRect.width;
 
-  const mobGapStr = getComputedStyle(slideList.value).getPropertyValue(
-    '--mob-gap',
-  );
+  const mobGapStr = getComputedStyle(slideList.value).getPropertyValue( '--mob-gap');
   const mobGap = parseFloat(mobGapStr);
 
-  const mobWidthToShow =
-    mobMaxWidth + mobGap * (slideCount - 1) - slideWrapRect.width;
+  const mobWidthToShow = mobMaxWidth + mobGap * (slideCount - 1) - slideWrapRect.width;
 
-  if (endX > 0 && endX < startX) translateListX -= slideWrapRect.width / 1.2;
-  else if (endX > 0 && endX > startX)
-    translateListX += slideWrapRect.width / 1.2;
+  if (endX.value > 0 && endX.value < startX.value) translateListX.value -= slideWrapRect.width / 1.2;
+  else if (endX.value > 0 && endX.value > startX.value)
+    translateListX.value += slideWrapRect.width / 1.2;
 
-  if (translateListX >= 0) translateListX = 0;
-  else if (translateListX <= -mobWidthToShow) {
-    translateListX = -mobWidthToShow;
+  if (translateListX.value >= 0) translateListX.value = 0;
+  else if (translateListX.value <= -mobWidthToShow) {
+    translateListX.value = -mobWidthToShow;
   }
 }
 
@@ -213,8 +196,6 @@ onUnmounted(() => {
 
     border-radius: 50%;
 
-    background-color: #ffffff;
-    box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: 0.5s ease;
 
@@ -226,9 +207,6 @@ onUnmounted(() => {
       pointer-events: none;
       opacity: 0.2;
     }
-  }
-
-  &__arrow-left-img {
   }
 
   &__w {
@@ -275,8 +253,6 @@ onUnmounted(() => {
 
     border-radius: 50%;
 
-    background-color: #ffffff;
-    box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: 0.3s ease-in-out;
 
@@ -290,7 +266,5 @@ onUnmounted(() => {
     }
   }
 
-  &__arrow-right-img {
-  }
 }
 </style>

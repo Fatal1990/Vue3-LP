@@ -51,3 +51,25 @@ onMounted(() => {
   window.addEventListener('scroll', getHeightHeader);
 });
 </script>
+
+<style lang="scss" scoped>
+.header {
+  background-color: white;
+
+  &__main-info {
+    width: 100%;
+    &.active {
+      position: fixed;
+      top: 0;
+
+      z-index: 501;
+    }
+  }
+
+  &__additional {
+    @include bigMobile {
+      display: none;
+    }
+  }
+}
+</style>

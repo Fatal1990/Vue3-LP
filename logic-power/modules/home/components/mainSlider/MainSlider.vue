@@ -2,271 +2,344 @@
   <article class="home-slider">
     <div class="home-slider__bg-w">
       <span class="ui-loader" v-if="!slideList.length"></span>
-      <div class="home-slider__bg"
-           v-for="(slide, index) in slideList"
-           :key="index"
-           :style="{'--bg-color': slide.backgroundColor}"
-           :class="{
-              hideLeft: isHideLeft(index),
-              hideRight: isHideRight(index),
-              showLeft: isShowLeft(index),
-              showRight: isShowRight(index),
-           }"
+      <div
+        class="home-slider__bg"
+        v-for="(slide, index) in slideList"
+        :key="index"
+        :style="{ '--bg-color': slide.backgroundColor }"
+        :class="{
+          hideLeft: isHideLeft(index),
+          hideRight: isHideRight(index),
+          showLeft: isShowLeft(index),
+          showRight: isShowRight(index),
+        }"
       />
     </div>
-    <div class="home-slider__slide-handler"
-         v-for="(slide, index) in slideList"
-         :key="index"
-         :style="{
-                  '--bg-color': slide.backgroundColor,
-                  '--translateX': isActive(index, cssPros.bannerTranslateX) + 'px',
-                  '--angle': isActive(index, cssPros.bannerTranslateX * 0.2) + 'deg'
-               }"
-         :class="{
-                  hideLeft: isHideLeft(index),
-                  hideRight: isHideRight(index),
-                  showLeft: isShowLeft(index),
-                  showRight: isShowRight(index),
-                  active: isActive(index),
-                  move: isActive(index, isMove)
-               }"
-
-         @mousedown="startMove"
-         @touchstart="startMove"
-
-         @dragstart.prevent.stop
+    <div
+      class="home-slider__slide-handler"
+      v-for="(slide, index) in slideList"
+      :key="index"
+      :style="{
+        '--bg-color': slide.backgroundColor,
+        '--translateX': isActive(index, cssProsBannerTranslateX) + 'px',
+        '--angle': isActive(index, cssProsBannerTranslateX * 0.2) + 'deg',
+      }"
+      :class="{
+        hideLeft: isHideLeft(index),
+        hideRight: isHideRight(index),
+        showLeft: isShowLeft(index),
+        showRight: isShowRight(index),
+        active: isActive(index),
+        move: isActive(index, isMove),
+      }"
+      @mousedown="startMove"
+      @touchstart="startMove"
+      @dragstart.stop
     >
       <section class="home-slider__slide">
-        <div class="home-slider__info"
-             :style="{
-                '--title-and-btn-color': slide.titleAndBtnColor || null,
-             }"
+        <div
+          class="home-slider__info"
+          :style="{
+            '--title-and-btn-color': slide.titleAndBtnColor,
+          }"
         >
           <h2 class="home-slider__title">
-            <a :href="slide.url" :target="slide.url ? '_blank' : '_self'">
-            {{ slide.title }}
+            <a :href="slide.url" :target="slide.url">
+              {{ slide.title }}
             </a>
           </h2>
-          <span class="home-slider__divider"></span>
           <p class="home-slider__text">
-          {{ slide.content }}
+            {{ slide.content }}
           </p>
-          <a class="home-slider__btn"
-             :href="getFormattedUrl(slide.url?.Value)"
-             :target="slide.url ? '_blank' : '_self'"
-             v-if="slide.buttonText"
+          <a
+            class="home-slider__btn"
+            :href="slide.url"
+            :target="slide.url"
+            v-if="slide.buttonText"
           >
-          {{ slide.buttonText }}
+            {{ slide.buttonText }}
           </a>
         </div>
-        <div class="home-slider__img-w"
-             :class="{
-                move: isActive(index, isMove),
-                active: isActive(index),
-             }"
-             :style="{
-                '--img-border-color': slide.imgBorderColor || null,
-             }">
-          <img :src="slide.image.Value" alt="">
+        <div
+          class="home-slider__img-w"
+          :class="{
+            move: isActive(index, isMove),
+            active: isActive(index),
+          }"
+          :style="{
+            '--img-border-color': slide.imgBorderColor || null,
+          }"
+        >
+          <img :src="slide.image" alt="" />
         </div>
       </section>
     </div>
-    <div class="home-slider__arrows" v-if="slideList.length"
-         :style="{
-                '--arrow-color': slideList[currIndex].titleAndBtnColor || null,
-         }"
-    >
-      <span class="home-slider__arrow left ui-btn" @click="leftClick">
-        <SvgIcon class="home-slider__arrow-icon" :icon="icons['arrow-left']"/>
-      </span>
-      <span class="home-slider__arrow right ui-btn" @click="rightClick">
-        <SvgIcon class="home-slider__arrow-icon" :icon="icons['arrow-right']"/>
-      </span>
+    <div class="home-slider__arrows" v-if="slideList.length">
+      <SliderButton
+        class="home-slider__arrow-icon left"
+        @click="leftClick"
+        v-if="slideList.length"
+      />
+      <SliderButton
+        class="home-slider__arrow-icon right"
+        :directionRight="true"
+        @click="rightClick"
+      />
     </div>
     <ul class="home-slider__nav">
-      <li class="home-slider__nav-item ui-btn"
-          v-for="(slide, index) in slideList"
-          :key="index"
-          :class="{
-              active: isActive(index),
-           }"
-          @click="setIndex(index, Math.sign(currIndex - index))"
+      <li
+        class="home-slider__nav-item ui-btn"
+        v-for="(slide, index) in slideList"
+        :key="index"
+        :class="{
+          active: isActive(index),
+        }"
+        @click="setIndex(index, Math.sign(currIndex - index))"
       />
     </ul>
   </article>
 </template>
 
-<script lang="ts">
-import {MainSliderItem} from "@shared/models/view/mainSliderItem";
-import SvgIcon from "@shared/components/svg/SvgIcon.vue";
-import API from "@/http/API";
-import {isMouse, isTouch} from "@/_shared/models/view/tools";
-import {BODY_STATE, BodyStateHelper} from "@shared/helpers/view/bodyState.helper";
-import {Component, Vue} from "~/tools/version-types";
-import {LinkBuildHelper} from "@shared/helpers/links/linkBuild.helper";
+<script setup>
+import SliderButton from "~/modules/home/components/UI/SliderButton.vue";
 
-@Component({
-  name: 'MainSliderComponent',
-  components: {SvgIcon}
-})
-export default class MainSliderComponent extends Vue {
-  raw: Partial<MainSliderItem>[] = [];
-  slideList: MainSliderItem[] = [];
+const slideList = [
+  {
+    title: "Аккумуляторна батарея LP 400PZS — 280 AH1",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    image: "https://images.ctfassets.net/ql2dtx28kmvf/2ltaWF07s0nzDneVRsBS9/7c1c11394df6be85eb7590966337b8d6/Banner_new_B2B_-349552_-363636.png",
+    backgroundColor: "#393D38",
+    url: "",
+    buttonText: "Подробнее",
+    titleAndBtnColor: "",
+    imgBorderColor: "",
+  },
+  {
+    title: "Аккумуляторна батарея LP 400PZS — 280 AH2",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    image: "https://images.ctfassets.net/ql2dtx28kmvf/4Va4aWBR80jjY1hZrjsZHA/833bad1bdf1d1d856aff6853fa125c51/Banner_new_B2B-7.png",
+    backgroundColor: "#273d22",
+    url: "",
+    buttonText: "Подробнее",
+    titleAndBtnColor: "",
+    imgBorderColor: "",
+  },
+  {
+    title: "Аккумуляторна батарея LP 400PZS — 280 AH3",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    image: "https://images.ctfassets.net/ql2dtx28kmvf/2ltaWF07s0nzDneVRsBS9/7c1c11394df6be85eb7590966337b8d6/Banner_new_B2B_-349552_-363636.png",
+    backgroundColor: "#393D38",
+    url: "",
+    buttonText: "Подробнее",
+    titleAndBtnColor: "",
+    imgBorderColor: "",
+  },
+  {
+    title: "Аккумуляторна батарея LP 400PZS — 280 AH4",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    image: "https://images.ctfassets.net/ql2dtx28kmvf/4Va4aWBR80jjY1hZrjsZHA/833bad1bdf1d1d856aff6853fa125c51/Banner_new_B2B-7.png",
+    backgroundColor: "#273d22",
+    url: "",
+    buttonText: "Подробнее",
+    titleAndBtnColor: "",
+    imgBorderColor: "",
+  },
+];
 
-  isMove: boolean = false;
-  cssPros = {
-    startX: 0,
-    bannerTranslateX: 0
+const isMove = ref(false);
+
+const cssProsStartX = ref(0);
+const cssProsBannerTranslateX = ref(0);
+
+const currIndex = ref(0);
+
+const isNextLeft = ref(false);
+const nextIndex = ref(0);
+
+const intervalID = ref(-1);
+const intervalSeconds = ref(8);
+
+const GRABBING = ref('grabbing');
+const	HIDE_SCROLL = ref('hide-scroll');
+
+class HomeSliderApi {
+	getSliders() {
+		return contentfulClient.getEntries({
+			content_type: 'slider',
+			locale: '*'
+		}).then((data) => {
+			return data.items
+				.map(el => CNTFTransformer.transform(el.fields))
+				.map(el => MainSliderItem.fromJson(el));
+		});
+	}
+}
+
+function getFormattedUrl(url) {
+  return formatUrl(url);
+}
+
+function getIsAbsolutePath(url) {
+	return new RegExp('^(?:[a-z+]+:)?//', 'i').test(url);
+}
+
+function formatUrl(url) {
+  if (!url) return url;
+  if (this.getIsAbsolutePath(url)) return url;
+  if (url[0] !== '/') return '/' + url;
+  return url;
+}
+
+function endInterval() {
+  clearInterval(intervalID.value);
+}
+
+function startInterval() {
+  endInterval();
+  intervalID.value = setInterval(() => {
+    moveOn(-1);
+  }, intervalSeconds.value * 1000);
+}
+
+function beforeMount() {
+  HomeSliderApi.getSliders().then(list => {
+    slideList = list;
+    startInterval();
+  });
+}
+
+function leftClick() {
+  moveOn(1);
+}
+
+function rightClick() {
+  moveOn(-1);
+}
+
+function isHideLeft(index) {
+  return index !== currIndex.value && !isNextLeft.value;
+}
+
+function isHideRight(index) {
+  return index !== currIndex.value && isNextLeft.value;
+}
+
+function isShowLeft(index) {
+  return index === currIndex.value && isNextLeft.value;
+}
+
+function isShowRight(index) {
+  return index === currIndex.value && isNextLeft.value;
+}
+
+/// Проверяет равен ли переданный индекс текущему, если да, возвращает *значение второго параметра* или *1*.
+///
+/// В случае провала всех проверок возвращает *0*
+function isActive(index, val) {
+  if (typeof val !== "undefined" && index === currIndex.value) return val;
+  else return +(index === currIndex.value);
+}
+
+function isMouse(e) {
+	return e.type.includes('mouse')
+}
+
+function isTouch(e) {
+	return e.type.includes('touch')
+}
+
+function startMove(event) {
+   endInterval();
+
+  if (isMouse(event)) {
+    cssProsStartX.value = event.clientX;
+    addEventListener("mousemove", move);
+    addEventListener("mouseup", endMove);
+  } else if (isTouch(event)) {
+    cssProsStartX.value = event.touches[0].clientX;
+    addEventListener("touchmove", move);
+    addEventListener("touchend", endMove);
   }
-  currIndex: number = 0;
+  isMove.value = true; 
 
-  isNextLeft: boolean = false;
-  nextIndex: number = 0;
+  document.body.classList.add(HIDE_SCROLL.value);
+}
 
-  intervalID = -1;
-  intervalSeconds = 8;
-
-  getFormattedUrl(url: string | undefined) {
-    return LinkBuildHelper.formatUrl(url);
+function move(event) {
+  let currX;
+  if (isMouse(event)) {
+    currX = event.clientX;
+  } else if (isTouch(event)) {
+    currX = event.touches[0].clientX;
   }
 
-  endInterval() {
-    clearInterval(this.intervalID);
+  cssProsBannerTranslateX.value = (currX - cssProsStartX.value) * 0.6;
+}
+
+function endMove(event) {
+   if (isMouse(event)) {
+    removeEventListener("mousemove", move);
+    removeEventListener("mouseup", endMove);
+  } else if (isTouch(event)) {
+    removeEventListener("touchmove", move);
+    removeEventListener("touchend", endMove);
   }
 
-  startInterval() {
-    this.endInterval();
-    this.intervalID = setInterval(() => {
-      this.moveOn(-1);
-    }, this.intervalSeconds * 1000) as any;
-  }
+  isMove.value = false;
+  
+  document.body.classList.remove(GRABBING.value);
 
-  beforeMount() {
-    API.Contentful.HomeSlider.getSliders().then(list => {
-      this.slideList = list;
-      this.startInterval();
-    });
-  }
+  const sign = Math.sign(cssProsBannerTranslateX.value)
+  cssProsBannerTranslateX.value = 0;
+  moveOn(sign) 
+}
 
-  leftClick() {
-    this.moveOn(1);
-  }
+function moveOn(sign) {
+  let nextIndex = currIndex.value + sign * -1;
+  
+  if (nextIndex < 0) nextIndex = slideList.length - 1;
+  else if (nextIndex >= slideList.length) nextIndex = 0;
 
-  rightClick() {
-    this.moveOn(-1);
-  }
+  setIndex(nextIndex, sign);
+}
 
-  isHideLeft(index) {
-    return index !== this.currIndex && !this.isNextLeft;
-  }
+function setIndex(nextIndex, sign) {
+  isNextLeft.value = sign > 0;
+  currIndex.value = nextIndex;
 
-  isHideRight(index) {
-    return index !== this.currIndex && this.isNextLeft;
-  }
-
-  isShowLeft(index) {
-    return index === this.currIndex && this.isNextLeft;
-  }
-
-  isShowRight(index) {
-    return index === this.currIndex && !this.isNextLeft;
-  }
-
-  /// Проверяет равен ли переданный индекс текущему, если да, возвращает *значение второго параметра* или *1*.
-  ///
-  /// В случае провала всех проверок возвращает *0*
-  isActive(index, val?) {
-    if (typeof val !== 'undefined' && index === this.currIndex)
-      return val;
-    else return +(index === this.currIndex)
-  }
-
-  startMove(event: MouseEvent | TouchEvent) {
-    this.endInterval();
-
-    if (isMouse(event)) {
-      this.cssPros.startX = event.clientX;
-      addEventListener('mousemove', this.move);
-      addEventListener('mouseup', this.endMove);
-    } else if (isTouch(event)) {
-      this.cssPros.startX = event.touches[0].clientX;
-      addEventListener('touchmove', this.move);
-      addEventListener('touchend', this.endMove);
-    }
-
-    this.isMove = true;
-    BodyStateHelper.add(BODY_STATE.GRABBING);
-  }
-
-  move(event: MouseEvent | TouchEvent) {
-    let currX;
-    if (isMouse(event)) {
-      currX = event.clientX;
-    } else if (isTouch(event)) {
-      currX = event.touches[0].clientX;
-    }
-
-    this.cssPros.bannerTranslateX = (currX - this.cssPros.startX) * 0.6;
-  }
-
-  endMove(event: MouseEvent | TouchEvent) {
-    if (isMouse(event)) {
-      removeEventListener('mousemove', this.move);
-      removeEventListener('mouseup', this.endMove);
-    } else if (isTouch(event)) {
-      removeEventListener('touchmove', this.move);
-      removeEventListener('touchend', this.endMove);
-    }
-
-    this.isMove = false;
-    BodyStateHelper.remove(BODY_STATE.GRABBING);
-    const sign = Math.sign(this.cssPros.bannerTranslateX)
-    this.cssPros.bannerTranslateX = 0;
-    this.moveOn(sign)
-  }
-
-  moveOn(sign: number) {
-    let nextIndex = this.currIndex + sign * -1;
-    if (nextIndex < 0)
-      nextIndex = this.slideList.length - 1;
-    else if (nextIndex >= this.slideList.length)
-      nextIndex = 0;
-
-    this.setIndex(nextIndex, sign);
-  }
-
-  setIndex(nextIndex: number, sign: number) {
-    this.isNextLeft = sign > 0;
-    this.currIndex = nextIndex;
-
-    this.startInterval();
-  }
+  startInterval(); 
 }
 </script>
 
 <style lang="scss" scoped>
 .home-slider {
-  $local-anim-time: .5s;
+  $local-anim-time: 0.5s;
   $anim-func: cubic-bezier(0.15, 0.69, 0.5, 1);
 
   position: relative;
   display: flex;
   justify-content: center;
 
-  height: 600px;
+  height: 750px;
   width: 100%;
 
   overflow: hidden;
 
   &::before {
-    content: '';
-    @include absoluteGrow();
-    background-color: black;
+    content: "";
+    position: absolute;
+    @include setAbs();
     z-index: -2;
+
+    background-color: black;
   }
 
   @include bigMobile() {
-    height: 448px;
+    /* height: 448px; */
   }
 
   @mixin animConfig() {
@@ -297,17 +370,19 @@ export default class MainSliderComponent extends Vue {
   }
 
   @keyframes showRight {
-    0% {
+/*     0% {
       left: 100%;
     }
     100% {
       left: 0;
-    }
+    } */
   }
 
   &__bg-w {
     display: flex;
-    @include absoluteGrow();
+
+    position: absolute;
+    @include setAbs();
     z-index: -1;
 
     pointer-events: none;
@@ -354,21 +429,23 @@ export default class MainSliderComponent extends Vue {
   }
 
   &__slide-handler {
+    @extend %width-main;
+    height: 100%;
+    width: 100%;
+
     --translateX: 0px;
     --angle: 0deg;
     --bg-color: black;
 
     position: absolute;
     top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
 
     display: flex;
     justify-content: center;
     user-select: none;
 
     padding: 24px 16px 32px;
+    margin: auto;
 
     transition: $local-anim-time $anim-func;
     opacity: 1;
@@ -410,11 +487,12 @@ export default class MainSliderComponent extends Vue {
 
   &__slide {
     height: 100%;
-    max-width: 860px;
+    max-width: 1130px;
     width: 100%;
 
-    display: flex;
-    align-items: center;
+    @include flex-container(row, space-between, center);
+
+    gap: 16px;
 
     @include bigMobile() {
       flex-direction: column;
@@ -422,7 +500,7 @@ export default class MainSliderComponent extends Vue {
   }
 
   &__info {
-    --title-and-btn-color: #{$color-main};
+    --title-and-btn-color: #f36c21;
 
     position: relative;
     width: 50%;
@@ -430,7 +508,7 @@ export default class MainSliderComponent extends Vue {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 32px;
+    gap: 24px;
 
     z-index: 3;
 
@@ -446,42 +524,210 @@ export default class MainSliderComponent extends Vue {
   }
 
   &__title {
-    @include font40();
-    color: var(--title-and-btn-color);
+    @include font(36, 43, 700);
+    color: white;
   }
 
-  &__divider {
+  /*   &__divider {
     width: max(50%, 150px);
-    border: 1px solid $color-border-grey-lightest;
+    border: 1px solid #F7F9FA;
 
     @include bigMobile() {
       display: none;
     }
-  }
+  } */
 
   &__text {
-    @include fontMid();
+    @include font(16, 22, 400);
+    letter-spacing: 0.02em;
     color: white;
   }
 
   &__btn {
-    @extend %ui-big-btn;
+    @include flex-container(row, center, center);
 
-    color: #ffffff;
+    position: relative;
 
-    min-width: 200px;
-    background-color: var(--title-and-btn-color);
+    @include font(18, 24);
+    letter-spacing: 0.02em;
+    color: #f36c21;
+
+    gap: 8px;
+
+    /*  min-width: 200px; */
+    /*   background-color: var(--title-and-btn-color); */
+    cursor: pointer;
+    user-select: none;
+    /* 	--border-width: 0px;
+	--vert-pad: 8px;
+	--horiz-pad: 16px; */
+
+    /* 	padding: Calc(Var(--vert-pad) - Var(--border-width)) Calc(Var(--horiz-pad) - Var(--border-width)); */
+
+    /* border-radius: 16px; */
+
+    z-index: 2;
+    transition: 0.2s ease-in-out;
+
+    &:after {
+      content: "";
+
+      width: 0;
+      height: 1px;
+
+      position: absolute;
+      left: 0;
+      bottom: 0;
+
+      background-color: #f36c21;
+
+      transition: width 0.2s ease-in-out;
+    }
 
     &:hover {
-      box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, .2);
+      &:after {
+        width: 100%;
+      }
+
+      /* box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, .2); */
+    }
+/* 
+    	&::before,
+	&::after {
+		transition: .2s ease-in-out;
+	} */
+
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.45;
+      filter: grayscale(1);
+    }
+
+    &.low-disabled {
+      opacity: 0.45;
+      filter: grayscale(1);
+    }
+
+    &.wide {
+      min-width: 350px;
+      max-width: 350px;
+      width: 100%;
+
+      @include mobile() {
+        min-width: 100%;
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+    &.loading {
+      pointer-events: none;
+
+      &:before {
+        content: "";
+
+        width: 100%;
+        height: 100%;
+
+        position: absolute;
+        @include setAbs();
+
+        border-radius: inherit;
+        background-color: inherit;
+
+        z-index: 2;
+      }
+
+      &:after {
+        content: "";
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        color: inherit;
+
+        background-color: transparent;
+        border-radius: 50%;
+        border: 1px solid currentColor;
+        border-top-color: transparent;
+
+        @keyframes absolute-spin {
+          from {
+            transform: translate(-50%, -50%) rotate(0);
+          }
+          to {
+            transform: translate(-50%, -50%) rotate(360deg);
+          }
+        }
+
+        @keyframes spin {
+          from {
+            transform: rotate(0);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        animation-name: absolute-spin;
+
+        animation-duration: 0.3s;
+        animation-timing-function: ease;
+        animation-iteration-count: infinite;
+
+        z-index: 3;
+      }
+    }
+
+    &.big {
+      --vert-pad: 12px;
+      --horiz-pad: 24px;
+
+      border-radius: 24px;
+
+      @include bigMobile() {
+        --vert-pad: 8px;
+        --horiz-pad: 16px;
+      }
+    }
+
+    @mixin local-small-mob() {
+      @include bigMobile() {
+        --horiz-pad: 8px;
+        --vert-pad: 4px;
+        @include font(16, 16);
+      }
+    }
+
+    &.small {
+      @include font(14, 16);
+
+      * {
+        @include font(14, 16);
+      }
+
+      @include local-small-mob();
+    }
+
+    @include bigMobile() {
+      --horiz-pad: 12px;
+      @include font(16, 20);
+    }
+
+    &.small-mob {
+      @include local-small-mob();
     }
   }
 
   &__img-w {
-    --img-border-color: #{$color-main};
-    position: relative;
+    max-width: 404px;
+    width: 100%;
     height: 100%;
-    width: 50%;
+
+    --img-border-color: #f36c21;
+    position: relative;
+
     display: flex;
     justify-content: center;
 
@@ -508,8 +754,10 @@ export default class MainSliderComponent extends Vue {
     }
 
     &::before {
-      content: '';
-      @include absoluteGrow(absolute, 6px);
+      content: "";
+      position: absolute;
+      @include setAbs(6px, 6px, 6px, 6px);
+
       border: 1px solid var(--img-border-color);
       transition: Calc(#{$local-anim-time} / 2) $anim-func;
 
@@ -518,7 +766,7 @@ export default class MainSliderComponent extends Vue {
     }
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       left: 50%;
       top: 50%;
@@ -552,95 +800,81 @@ export default class MainSliderComponent extends Vue {
   }
 
   &__arrows {
-    --arrow-color: #{$color-main};
+    @extend %width-main;
 
-    @include absoluteGrow();
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    position: absolute;
+    @include setAbs();
+
+    @include flex-container(row, space-between, center);
 
     padding: 16px;
+    margin: auto;
 
     pointer-events: none;
     user-select: none;
 
     z-index: 5;
 
-    @include bigMobile() {
-      display: none;
+    @include bigMobile {
+      
     }
-  }
-
-  &__arrow {
-    height: 32px;
-    width: 32px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: var(--arrow-color);
-
-    border: 1px solid $color-border-grey-light;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(20px);
-
-    @include anim();
-
-    pointer-events: auto;
-
-    &:hover {
-      border-color: currentColor;
-    }
-
-    &:active {
-      color: $color-main-dark;
-    }
-
-    &.left {
-    }
-
-    &.right {
-    }
-  }
-
-  &__arrow-icon {
-    @include fixedHW(16px, 16px);
   }
 
   &__nav {
     position: absolute;
     left: 0;
-    bottom: 16px;
+    bottom: 54px;
 
     width: 100%;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    @include flex-container(row, center, center);
+    gap: 24px;
 
     pointer-events: none;
     user-select: none;
     z-index: 6;
+
+    @include bigMobile {
+      bottom: 32px;
+    }
   }
 
   &__nav-item {
-    @include add-click-area(4px);
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
 
-    background-color: transparent;
-    border: 1px solid white;
+    position: relative;
 
-    @include anim();
+    background-color: white;
+    border-radius: 50%;
+
     pointer-events: auto;
+    cursor: pointer;
 
     transform: rotate(45deg);
+    transition: 0.2s ease-in-out;
+
+    @include bigMobile {
+      width: 12px;
+      height: 12px;
+    }
+
+    &::before,
+    &::after {
+      transition: 0.2s ease-in-out;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      @include setAbs(4px, 4px, 4px, 4px);
+
+      min-height: 100%;
+      min-width: 100%;
+    }
 
     &.active {
-      background-color: white;
+      background-color: #f36c21;
       transform: rotate(45deg) scale(1.2);
     }
   }

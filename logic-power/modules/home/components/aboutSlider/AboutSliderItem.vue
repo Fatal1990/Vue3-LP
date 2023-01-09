@@ -1,7 +1,7 @@
 <template>
   <li class="slider__list-item">
     <div class="slider__list-item-img-w">
-      <img class="slider__list-item-img" src="/img/mainAboutUsImg.png" alt="" />
+     <img class="slider__list-item-img" :src="`/img/${aboutCard.img}.png`" alt="" />
     </div>
     <div class="slider__list-item-info">
       <p class="slider__list-item-info-title">{{ aboutCard.title }}</p>
@@ -30,11 +30,11 @@ const { aboutCard, isMobile } = defineProps(['aboutCard', 'isMobile']);
 
 const itemText = ref(null);
 
-let isTextBiggerThanWrapper = false;
-let isActive = false;
+const isTextBiggerThanWrapper = ref(false);
+const isActive = ref(false);
 
-const calcItemTextHeight = () => {
-  isTextBiggerThanWrapper = itemText.value.scrollHeight > 180;
+function calcItemTextHeight() {
+  isTextBiggerThanWrapper.value = itemText.value.scrollHeight > 180;
 };
 
 function onResize() {
@@ -141,7 +141,7 @@ onUnmounted(() => {
     width: 100%;
     max-width: 756px;
 
-    /*@extend %flex-column;*/
+    @include flex-container(column, center,);
     gap: 56px;
 
     @include smallScreen {
@@ -156,30 +156,31 @@ onUnmounted(() => {
   }
 
   &__list-item-info-title {
-    /*@include fontUnify(30, 40, 600);
-    color: $color-main;*/
+    @include font(30, 40, 600);
+    color: #F36C21;
+    letter-spacing: 0.02em;
 
     @include smallScreen {
-      /*@include fontUnify(24, 32, 600);*/
+      @include font(24, 32, 600);
     }
 
     @include bigMobile {
-      /*@include fontUnify(20, 30, 600);*/
+      @include font(20, 30, 600);
     }
   }
 
   &__list-item-info-text {
-    /*@include fontUnify(20, 28);*/
+    @include font(20, 28);
     letter-spacing: 0.02em;
 
     transition: 0.2s ease;
 
     @include smallScreen {
-      /*@include fontUnify(18, 24);*/
+      @include font(18, 24);
     }
 
     @include bigMobile {
-      /*@include fontUnify;*/
+      @include font(18, 24);
 
       @include lineClamp(8);
 
@@ -193,10 +194,10 @@ onUnmounted(() => {
   }
 
   &__list-item-btn {
-    /*@include fontUnify;*/
+    @include font(18, 24);
     letter-spacing: 0.02em;
     text-align: left;
-    /*color: $color-main;*/
+    color: #F36C21;
 
     cursor: none;
   }

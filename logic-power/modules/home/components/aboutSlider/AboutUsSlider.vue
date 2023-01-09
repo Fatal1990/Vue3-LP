@@ -97,7 +97,7 @@
 </template>
 
 <script setup>
-import AboutSliderItem from './AboutSliderItem.vue';
+import AboutSliderItem from '~/modules/home/components/aboutSlider/AboutSliderItem.vue';
 
 const slide = ref(null);
 const slideList = ref(null);
@@ -109,184 +109,170 @@ const sliderWidth = ref(null);
 const sliderData = [
   {
     img: 'mainAboutUsImg',
-    title: '2007 @Year',
+    title: '2007',
     text: '@Brand registration',
   },
   {
     img: 'mainAboutUsImg',
-    title: '2009 @Year',
+    title: '2009',
     text: '@Company wins tenders',
   },
   {
     img: 'mainAboutUsImg',
-    title: '2012-2013 @Year',
+    title: '2012-2013',
     text: '@Company reaches UAH 1 million',
   },
   {
     img: 'mainAboutUsImg',
-    title: '2014 @Year',
+    title: '2014',
     text: '@Revolution in energy independence',
   },
   {
     img: 'mainAboutUsImg',
-    title: '2015-2016 @Year',
+    title: '2015-2016',
     text: '@Brand actively developing alternative energy',
   },
   {
     img: 'mainAboutUsImg',
-    title: '2017 @Year',
+    title: '2017',
     text: '@LP commodity items in TOP sales',
   },
   {
     img: 'mainAboutUsImg',
-    title: '2018 @Year',
+    title: '2018',
     text: '@Company received certificate ISO 9001',
   },
   {
     img: 'mainAboutUsImg',
-    title: '2019 @Year',
+    title: '2019',
     text: '@Brand in Vybir roku',
   },
   {
     img: 'mainAboutUsImg',
-    title: '2020-2021 @Year',
+    title: '2020-2021',
     text: '@Company wins tender again',
   },
   {
     img: 'mainAboutUsImg',
-    title: '@Today',
+    title: 'Present',
+    text: '@LP develop and test new types of equipment',
+  },
+  {
+    img: 'mainAboutUsImg',
+    title: 'Yes, Future!',
     text: '@LP develop and test new types of equipment',
   },
 ];
 
-let currentSlide = 0;
-let translateX = 0;
-let lineWidth = 0;
-let slideWidth = 0;
-let startX = 0;
-let endX = 0;
-let lineMobWidth = 0;
-let isMobile = false;
+const currentSlide = ref(0);
+const translateX = ref(0);
+const lineWidth = ref(0);
+const slideWidth = ref(0);
+const startX = ref(0);
+const endX = ref(0);
+const lineMobWidth = ref(0);
+const isMobile = ref(false);
 
 const slideCount = sliderData.length;
 
-const paginationColoredLineWidth = () => {
-  const paginationItemRect =
-    paginationItem.value[currentSlide].getBoundingClientRect();
+function paginationColoredLineWidth() {
+  const paginationItemRect = paginationItem.value[currentSlide.value].getBoundingClientRect();
   const lineIndent = paginationItemRect.width / 2;
 
-  lineWidth = paginationItemRect.width * currentSlide + lineIndent;
+  lineWidth.value = paginationItemRect.width * currentSlide.value + lineIndent;
 };
 
 const paginationLineMobWidthCalc = () => {
-  const paginationItemRect =
-    paginationItem.value[currentSlide].getBoundingClientRect();
+  const paginationItemRect = paginationItem.value[currentSlide.value].getBoundingClientRect();
 
-  lineMobWidth = paginationItemRect.width * slideCount;
+  lineMobWidth.value = paginationItemRect.width * slideCount;
 };
 
-const paginationColoredDot = (index) => index <= currentSlide;
+const paginationColoredDot = (index) => index <= currentSlide.value;
 
-const adaptiveSliderWidth = () => {
+function adaptiveSliderWidth() {
   const sliderWindowRect = sliderWindow.value.getBoundingClientRect();
 
-  slideWidth = (sliderWindowRect.width / 100) * 78;
+  slideWidth.value = (sliderWindowRect.width / 100) * 78;
 };
 
-const translateXWidthTimeOut = () => {
-  console.log('slide', slide);
-  /*setTimeout(() => {
-    const slideRect = slide.value[currentSlide].getBoundingClientRect();
-    const slideListRect = slideList.scrollWidth;
+function translateXWidthTimeOut() {
+  setTimeout(() => {
+    const slideRect = slideList.value.children[currentSlide.value].getBoundingClientRect();
+    const slideListRect = slideList.value.scrollWidth;
     const sliderWindowRect = sliderWindow.value.getBoundingClientRect();
 
     if (window.innerWidth <= 1024) {
-      translateX =
-        currentSlide *
-        (-slideRect.width -
-          (slideListRect - slideRect.width * slideCount) / (slideCount - 1));
+      translateX.value = currentSlide.value * (-slideRect.width - (slideListRect - slideRect.width * slideCount) / (slideCount - 1));
     } else {
-      translateX =
-        currentSlide *
-          (-slideRect.width -
-            (slideListRect - slideRect.width * slideCount) / (slideCount - 1)) +
-        (sliderWindowRect.width - slideRect.width) / 2;
+      translateX.value = currentSlide.value * (-slideRect.width - (slideListRect - slideRect.width * slideCount) / (slideCount - 1)) + (sliderWindowRect.width - slideRect.width) / 2;
     }
-  }, 700);*/
+  }, 700);
 };
 
-const translateXWidth = () => {
-  /*const slideRect = slide.value[currentSlide].getBoundingClientRect();
-
-  const slideListRect = slideList.scrollWidth;
-  const sliderWindowRect = sliderWindow.value.getBoundingClientRect();
+function translateXWidth() {
+  const slideRect = slideList.value.children[currentSlide.value].getBoundingClientRect();
+  const slideListRect = slideList.value.scrollWidth;
+  const sliderWindowRect = sliderWindow.value.getBoundingClientRect(); 
 
   if (window.innerWidth <= 1024) {
-    translateX =
-      currentSlide *
-      (-slideRect.width -
-        (slideListRect - slideRect.width * slideCount) / (slideCount - 1));
+    translateX.value = currentSlide.value * (-slideRect.width - (slideListRect - slideRect.width * slideCount) / (slideCount - 1));
   } else {
-    translateX =
-      currentSlide *
-        (-slideRect.width -
-          (slideListRect - slideRect.width * slideCount) / (slideCount - 1)) +
-      (sliderWindowRect.width - slideRect.width) / 2;
-  }*/
+    translateX.value = currentSlide.value * (-slideRect.width - (slideListRect - slideRect.width * slideCount) / (slideCount - 1)) + (sliderWindowRect.width - slideRect.width) / 2;
+  }
 };
 
-const calcIsMobile = () => {
-  const mobWidth = getComputedStyle(sliderWidth.value).getPropertyValue(
-    '--mobile-width',
-  );
-  isMobile = window.innerWidth <= parseInt(mobWidth);
+function calcIsMobile() {
+  const mobWidth = getComputedStyle(sliderWidth.value).getPropertyValue( '--mobile-width');
+
+  isMobile.value = window.innerWidth <= parseInt(mobWidth);
 };
 
-const nextSlide = () => {
-  if (currentSlide + 1 >= slideCount) currentSlide = 0;
-  else currentSlide += 1;
+function nextSlide() {
+  if (currentSlide.value + 1 >= slideCount) currentSlide.value = 0;
+  else currentSlide.value += 1;
 
   translateXWidth();
   paginationColoredLineWidth();
 };
 
-const prevSlide = () => {
-  if (currentSlide - 1 < 0) currentSlide = slideCount - 1;
-  else currentSlide -= 1;
+function prevSlide() {
+  if (currentSlide.value - 1 < 0) currentSlide.value = slideCount - 1;
+  else currentSlide.value -= 1;
 
   translateXWidth();
   paginationColoredLineWidth();
 };
 
-const goToSlide = (index) => {
-  currentSlide = index;
+function goToSlide(index) {
+  currentSlide.value = index;
 
   translateXWidth();
   paginationColoredLineWidth();
 };
 
 function handleTouchStart(e) {
-  startX = e.touches[0].clientX;
-  endX = 0;
+  startX.value = e.touches[0].clientX;
+  endX.value = 0;
 }
 
 function handleTouchMove(e) {
-  endX = e.touches[0].clientX;
+  endX.value = e.touches[0].clientX;
 }
 
 function handleTouchEnd() {
-  const diffX = endX - startX;
+  const diffX = endX.value - startX.value;
 
-  if (endX > 0 && endX < startX && diffX < -50) {
-    if (currentSlide + 1 >= slideCount) {
-      currentSlide = slideCount - 1;
+  if (endX.value > 0 && endX.value < startX.value && diffX < -50) {
+    if (currentSlide.value + 1 >= slideCount) {
+      currentSlide.value = slideCount - 1;
     } else {
-      currentSlide += 1;
+      currentSlide.value += 1;
     }
-  } else if (endX > startX && diffX > 50) {
-    if (currentSlide - 1 < 0) currentSlide = 0;
+  } else if (endX.value > startX.value && diffX > 50) {
+    if (currentSlide.value - 1 < 0) currentSlide.value = 0;
     else {
-      currentSlide -= 1;
+      currentSlide.value -= 1;
     }
   }
 
@@ -319,8 +305,7 @@ onUnmounted(() => {
   width: 100%;
   height: 836px;
 
-  /*@extend %flex-column;*/
-  align-items: center;
+  @include flex-container(column, center, center);
   gap: 48px;
 
   background-color: #d8d8d8;
@@ -376,14 +361,14 @@ onUnmounted(() => {
 
     border-radius: 50%;
 
-    /*background-color: $color-main;*/
+    background-color: #F36C21;
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
 
     cursor: pointer;
     transition: 0.2s ease;
 
     &:hover {
-      /*background-color: $color-main-dark;*/
+      background-color: #AC450B;
     }
   }
 
@@ -395,14 +380,14 @@ onUnmounted(() => {
 
     border-radius: 50%;
 
-    /*background-color: $color-main;*/
+    background-color: #F36C21;
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
 
     cursor: pointer;
     transition: 0.2s ease;
 
     &:hover {
-      /*background-color: $color-main-dark;*/
+      background-color: #AC450B;
     }
   }
 
@@ -443,7 +428,7 @@ onUnmounted(() => {
     }
 
     &::-webkit-scrollbar-thumb {
-      /*background-color: $color-main;*/
+      background-color: #F36C21;
     }
 
     overflow-y: scroll;
@@ -497,7 +482,7 @@ onUnmounted(() => {
     bottom: 13px;
     left: 0;
 
-    /*background-color: $color-main;*/
+    background-color: #F36C21;
     border-radius: 2px;
 
     transition: 0.7s ease;
@@ -513,32 +498,31 @@ onUnmounted(() => {
 
     position: relative;
 
-    /*@extend %flex-column;*/
-    align-items: center;
-    justify-content: space-between;
+    @include flex-container(column, space-between, center);
     gap: 8px;
 
     z-index: 7;
   }
 
   &__title {
-    /*@include fontUnify(24, 34);*/
+    @include font(24, 34);
     color: #a0a0a0;
+    white-space: nowrap;
 
     overflow: auto;
 
     transition: 0.7s ease;
 
     @include bigMobile {
-      /*@include fontUnify;*/
+      @include font(18, 24);
     }
 
     &.active {
-      /*@include fontUnify(24, 34, 700);
-      color: $color-text-dark;*/
+      @include font(24, 34, 700);
+      color: #0E0F0F;
 
       @include bigMobile {
-        /*@include fontUnify;*/
+        @include font(18, 24);
       }
     }
   }
@@ -586,7 +570,7 @@ onUnmounted(() => {
     }
 
     &.colored {
-      /*background-color: $color-main;*/
+      background-color: #F36C21;
     }
   }
 }
