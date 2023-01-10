@@ -5,8 +5,7 @@
     :key="item.id"
     @mouseover="selectIndex(index)"
   >
-    <ModalCatalogItem v-if="item.children" :categories="item.children" />
-    <div v-else class="catalog__item-wrapper">
+    <div class="catalog__item-wrapper">
       <div class="catalog__image">
         <SvgIconRemote
           v-if="item.img"
@@ -35,6 +34,8 @@
         />
       </svg>
     </div>
+
+    <ModalCatalogItem v-if="item.children" :categories="item.children" />
   </li>
 </template>
 

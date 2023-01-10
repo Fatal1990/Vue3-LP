@@ -125,7 +125,7 @@ import ModalCatalogItem from './ModalCatalogItem.vue';
 const categoriesStore = useCategoriesStore();
 
 const categories = categoriesStore.getHeaderCategories;
-console.log(categories);
+
 const header = useHeaderStore();
 const menuItems = header.getModalCatalog;
 const activeCatalog = header.activeCatalog;
