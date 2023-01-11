@@ -1,61 +1,58 @@
 <template>
-  <ul>
-    <li
-      class="catalog__main-item"
-      @mouseover.stopPropagation="selectIndex(category.parentId)"
-    >
-      <div class="catalog__item-wrapper">
-        <div class="catalog__image">
-          <SvgIconRemote
-            v-if="category.img"
-            :url="category.img"
-            width="28px"
-            height="28px"
-          />
-        </div>
-        <span class="catalog__title">{{ category.name[lang] }}</span>
-      </div>
-
-      <div v-if="category.children" class="catalog__image-arrow">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M9 6L15 12L9 18"
-            stroke="#F36C21"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </div>
-
-      <template v-if="category.children">
-        <ModalCatalogItem
-          v-for="item in category.children"
-          :key="item.id"
-          :category="item"
-          :parentId="item.id"
+  <li
+    class="catalog__main-item"
+    v-for="(item, index) in categories"
+    :key="item.id"
+    @mouseover="selectIndex(index)"
+  >
+    <div class="catalog__item-wrapper">
+      <div class="catalog__image">
+        <SvgIconRemote
+          v-if="item.img"
+          :url="item.img"
+          width="28px"
+          height="28px"
         />
-      </template>
-    </li>
-  </ul>
+      </div>
+      <span class="catalog__title">{{ item.name[lang] }}</span>
+    </div>
+
+    <div v-if="item.children" class="catalog__image-arrow">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M9 6L15 12L9 18"
+          stroke="#F36C21"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+    <ModalCatalogItem v-if="item.children" :categories="item.children" />
+  </li>
 </template>
 
 <script setup>
 import SvgIconRemote from '~/modules/shared/SvgIconRemote.vue';
 
 const { urlLang } = useRoute().params;
-const { category, parentId } = defineProps(['category', 'parentId']);
+const { categories } = defineProps(['categories']);
 
 const lang = urlLang ? urlLang : 'ru';
 
+const counterMenu = ref(0);
+const currentIndex = ref(null);
+
 function selectIndex(i) {
-  console.log(i, parentId, i === parentId);
+  currentIndex.value = i;
+  counterMenu.value = 1;
 }
 </script>
 

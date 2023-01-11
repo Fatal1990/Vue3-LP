@@ -5,16 +5,21 @@ export const categoryFlatten = (categories, parent = undefined) => {
   }, []);
 };
 
-export const categoryHeader = (categories) => {
+export const categoryHeader = (categories, parentId) => {
   const result = [];
 
   categories.forEach((item) => {
     const image = item.images.find((el) => el.type === 'icon');
 
-    const menuItem = { id: item.id, name: item.name, img: image?.url };
+    const menuItem = {
+      id: item.id,
+      name: item.name,
+      img: image?.url,
+      parentId: parentId,
+    };
 
     if (item.children?.length) {
-      menuItem.children = categoryHeader(item.children);
+      menuItem.children = categoryHeader(item.children, item.id);
     }
 
     result.push(menuItem);
